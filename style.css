@@ -1,0 +1,24 @@
+body {
+    display: grid;
+    grid-template: 2fr 15fr 1fr / 1fr 6fr;
+    background-color: antiquewhite;
+    font-family: 'Times New Roman', Times, serif;
+    height: 98vh;
+}
+
+.icon {
+    height: 35px;
+}
+
+header {
+    grid-column: span 2;
+    display: flex;
+}
+
+body > * {
+    border: 1px solid;
+}
+
+footer {
+    grid-column: span 2;
+}
