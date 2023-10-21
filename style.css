@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     display: grid;
     grid-template-rows: 100px auto 30px;
@@ -5,7 +10,6 @@ body {
     background-color: antiquewhite;
     font-family: 'Times New Roman', Times, serif;
     min-height: 98vh;
-    /* position: relative; */
 }
 
 header {
@@ -71,9 +75,51 @@ header .icon {
 }
 
 #navbar .projects-container {
-    display: flex;
     flex-direction: column;
+    gap: 3vh;
+}
+
+#navbar .added-project {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#navbar .trash-project {
+    height: 15px;
+}
+
+#navbar .trash-project:hover {
+    transform: scale(2);
+}
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background-color: rgb(255, 231, 199);
+}
+
+dialog > form {
+    display: grid;
+    grid-template-columns: auto auto;
     gap: 20px;
+    padding: 20px;
+}
+
+dialog button {
+    place-self: center;
+    height: 40px;
+    width: 100px;
+    border-radius: 20px;
+    border: none;
+    background-color: black;
+    color: antiquewhite;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .headline {
@@ -101,13 +147,113 @@ header .icon {
     border: 1px dotted;
     border-radius: 10px;
     padding: 10px;
-    align-self: center;
+    place-self: center;
     height: 30px;
+}
+
+/* #content .added-task > * {
+    margin-bottom: 0px;
+} */
+
+#content .completed {
+    background-color: rgb(255, 250, 244);
+    color: grey;
 }
 
 #content .added-task > .task-notes {
     max-height: 40px;
     overflow: auto;
+}
+
+.check-label { 
+    display: block;
+    position: relative;
+    /* padding-left: 45px;  */
+    /* margin-bottom: 15px; */
+    bottom: 5px;
+    cursor: pointer;
+    font-size: 20px;
+} 
+
+/* From https://www.geeksforgeeks.org/how-to-style-a-checkbox-using-css/ */
+/* Hide the default checkbox */ 
+input[type=checkbox] { 
+    visibility: hidden;
+} 
+  
+/* Creating a custom checkbox 
+based on demand */ 
+.label-box { 
+    position: absolute; 
+    top: 25%; 
+    left: 50%; 
+    height: 20px; 
+    width: 20px;
+    border-radius: 25%;
+}
+
+.label-box.priority-high {
+    background-color: red; 
+}
+
+.label-box.priority-medium {
+    background-color: orange; 
+}
+
+.label-box.priority-low {
+    background-color: yellow; 
+}
+  
+/* Specify the background color to be 
+shown when hovering over checkbox */ 
+.check-label:hover input ~ .label-box { 
+    background-color: green; 
+} 
+  
+/* Specify the background color to be 
+shown when checkbox is active */ 
+.check-label input:active ~ .label-box { 
+    background-color: rgb(0, 73, 0); 
+} 
+  
+/* Specify the background color to be 
+shown when checkbox is checked */ 
+.check-label input:checked ~ .label-box { 
+    background-color: green; 
+} 
+  
+/* Checkmark to be shown in checkbox */ 
+/* It is not be shown when not checked */ 
+.label-box:after { 
+    content: ""; 
+    position: absolute; 
+    display: none; 
+} 
+  
+/* Display checkmark when checked */ 
+.check-label input:checked ~ .label-box:after { 
+    display: block; 
+} 
+  
+/* Styling the checkmark using webkit */ 
+/* Rotated the rectangle by 45 degree and  
+showing only two border to make it look 
+like a tickmark */ 
+.check-label .label-box:after { 
+    left: 6px; 
+    bottom: -1px; 
+    width: 10px; 
+    height: 25px; 
+    border: solid black; 
+    border-width: 0 4px 5px 0;
+    border-radius: 50%;
+    -webkit-transform: rotate(38deg); 
+    -ms-transform: rotate(38deg); 
+    transform: rotate(38deg); 
+} 
+
+#content input:checked {
+    accent-color: red;
 }
 
 #content .added-task > img:hover {
@@ -121,6 +267,10 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+footer .icon {
+    height: 35px;
 }
 
 /* body * {
