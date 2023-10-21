@@ -1,10 +1,11 @@
 body {
     display: grid;
-    grid-template-rows: 100px 15fr 30px;
+    grid-template-rows: 100px auto 30px;
     grid-template-columns: 1fr 6fr 1fr; /* on click change to 1 column */
     background-color: antiquewhite;
     font-family: 'Times New Roman', Times, serif;
     min-height: 98vh;
+    /* position: relative; */
 }
 
 header {
@@ -16,7 +17,7 @@ header {
     border-bottom: 2px solid;
 }
 
-.icon {
+header .icon {
     height: 35px;
 }
 
@@ -29,8 +30,8 @@ header {
     padding: 20px;
     border-right: 2px solid;
     position: sticky;
-    top: 20px;
-    /* display: none; */ /* on click change none */
+    top: 0;
+    /* display: none; */ /* on click change to none */
 }
 
 #navbar .icon {
@@ -42,8 +43,37 @@ header {
     gap: 5px;
 }
 
-.projects-container {
+#navbar .home:hover,
+#navbar .added-project:hover,
+.menu-close:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.1s;
+}
+
+#navbar .add-task,
+#navbar .add-project {
+    height: 30px;
+}
+
+#navbar .add-task:hover,
+#navbar .add-project:hover {
+    cursor: pointer;
+    transition: 0.2s;
+    transform: scale(1.5);
+}
+
+#navbar .add-task:active,
+#navbar .add-project:active {
+    cursor: pointer;
+    transform: scale(0.8);
+    transition: 0.3s;
+}
+
+#navbar .projects-container {
+    display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .headline {
@@ -62,29 +92,45 @@ header {
     padding: 20px;
 }
 
-.added-task {
+#content .added-task {
     width: 80%;
     display: grid;
-    grid-template-columns: auto 2fr 1fr 1fr 3fr 20px;
+    grid-template-columns: auto 2fr 1fr 1fr 3fr 22px;
     align-items: center;
     gap: 5vw;
     border: 1px dotted;
     border-radius: 10px;
     padding: 10px;
     align-self: center;
-    height: 40px;
+    height: 30px;
 }
 
-.added-task > .task-notes {
+#content .added-task > .task-notes {
     max-height: 40px;
     overflow: auto;
 }
 
+#content .added-task > img:hover {
+    cursor: pointer;
+    transition: 0.5s;
+    animation: tilt-shaking 0.3s infinite;
+}
+
 footer {
     grid-column: span 3;
-    place-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* body * {
     border: 1px solid;
 } */
+
+@keyframes tilt-shaking {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(0eg); }
+    75% { transform: rotate(-10deg); }
+    100% { transform: rotate(0deg); }
+  }
