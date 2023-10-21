@@ -14,18 +14,66 @@
         <div>To-Do List</div>
     </header>
     <div id="navbar">
-        <div class="headline home">Home</div>
-        <div class="all-tasks home">All tasks</div>
-        <div class="today home">Today</div>
-        <div class="week home">Week</div>
+        <div class="headline home">
+            Home
+        </div>
+        <div class="all-tasks home">
+            <img class="all-tasks icon" src="./icons/ballot-outline.svg" alt="">
+            All tasks
+        </div>
+        <div class="today home">
+            <img class="today icon" src="./icons/calendar-today.svg" alt="">
+            Today
+        </div>
+        <div class="week home">
+            <img class="week icon" src="./icons/calendar-month.svg" alt="">
+            Week
+        </div>
+        <div class="add-task icon">
+            <img class="add-project icon" src="./icons/plus-circle-outline.svg" alt="">
+        </div>
         <br>
         <div class="headline projects">Projects</div>
-        <div class="add-project projects">Add projects</div>
-        <img class="add-project icon" src="./icons/plus-circle-outline.svg" alt="">
+        <div class="projects-container">
+            <div class="added-project">Some project</div>
+            <div class="added-project">Some other project</div>
+            <img class="add-project icon" src="./icons/plus-circle-outline.svg" alt="">
+            <dialog id="new-project">
+                <form>
+                    <label for="submit-task">New project:</label>
+                    <input type="text" id="submit-task" required>
+                    <label for="submit-date">Date:</label>
+                    <input type="date" id="submit-date">
+                    <label for="submit-time">Time:</label>
+                    <input type="time" id="submit-time">
+                    <label for="submit-notes">Notes</label>
+                    <input type="text" id="submit-notes">
+                    <button class="submit modal" type="submit">Submit</button>
+                    <button class="close modal" formmethod="dialog" type="submit">Close</button>
+                </form>
+            </dialog>
+        </div>
+        
 
     </div>
     <div id="content">
-
+        <div class="added-task">
+            <input type="checkbox">
+            <div class="task-name">Shave beaver</div>
+            <div class="task-date">31.2.2028</div>
+            <div class="task-time">25:61</div>
+            <div class="task-notes">ou yeah</div>
+            <img src="./icons/trash-can-outline.svg" alt="">
+        </div>
+        <div class="added-task">
+            <input type="checkbox">
+            <div class="task-name">Shave beaver</div>
+            <div class="task-date">31.2.2028</div>
+            <div class="task-time">--:--</div>
+            <div class="task-notes">ou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeah</div>
+            <img src="./icons/trash-can-outline.svg" alt="">
+        </div>
+        
     </div>
     <footer>Icons by <a href="https://pictogrammers.com/">Pictogrammers</a></footer>
 </body>
