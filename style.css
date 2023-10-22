@@ -86,11 +86,13 @@ header .icon {
     gap: 5px;
 }
 
-#navbar .trash-project {
+#navbar .trash-project,
+#navbar .edit-project {
     height: 15px;
 }
 
-#navbar .trash-project:hover {
+#navbar .trash-project:hover,
+#navbar .edit-project:hover {
     transform: scale(2);
 }
 
@@ -165,6 +167,20 @@ dialog button {
     overflow: auto;
 }
 
+#content .added-task img:hover {
+    cursor: pointer;
+    transition: 0.5s;
+    animation: tilt-shaking 0.3s infinite;
+}
+
+#content .svg-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    position: relative;
+    right: 15px;
+}
+
 .check-label { 
     display: block;
     position: relative;
@@ -173,7 +189,7 @@ dialog button {
     bottom: 5px;
     cursor: pointer;
     font-size: 20px;
-} 
+}
 
 /* From https://www.geeksforgeeks.org/how-to-style-a-checkbox-using-css/ */
 /* Hide the default checkbox */ 
@@ -249,18 +265,14 @@ like a tickmark */
     border-radius: 50%;
     -webkit-transform: rotate(38deg); 
     -ms-transform: rotate(38deg); 
-    transform: rotate(38deg); 
+    transform: rotate(38deg);
 } 
 
-#content input:checked {
+/* #content input:checked {
     accent-color: red;
-}
+} */
 
-#content .added-task > img:hover {
-    cursor: pointer;
-    transition: 0.5s;
-    animation: tilt-shaking 0.3s infinite;
-}
+
 
 footer {
     grid-column: span 3;

@@ -20,7 +20,7 @@ let myTasks = [{
 ];
 
 class Task {
-    constructor (task, date, time, notes, priority) {
+    constructor(task, date, time, notes, priority) {
         this.task = task;
         this.date = date;
         this.time = time;
@@ -28,7 +28,7 @@ class Task {
         this.priority = priority
     }
 
-    addToMyTasks () {
+    addToMyTasks() {
         let toBeAdded = {};
         toBeAdded.task = this.task;
         toBeAdded.date = this.date;
@@ -46,9 +46,43 @@ newTask.addToMyTasks();
 console.log(myTasks);
 
 
-const button = document.querySelector('.add-project');
-const modal = document.querySelector('#new-project-task');
+class Project extends Task {
+    constructor(task, date, time, notes, priority) {
+        super(task, date, time, notes, priority)
+    }
+    
+}
 
-button.addEventListener('click', (e) => {
-    modal.showModal();
-})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const button = document.querySelector('.add-project');
+// const modal = document.querySelector('#new-project-task');
+
+// button.addEventListener('click', (e) => {
+//     modal.showModal();
+// })
