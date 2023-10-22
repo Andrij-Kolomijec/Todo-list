@@ -4,25 +4,15 @@
 }
 
 body {
-    display: grid;
-    grid-template-rows: 100px auto 30px;
-    grid-template-columns: 1fr 6fr 1fr; /* on click change to 1 column */
     background-color: antiquewhite;
     font-family: 'Times New Roman', Times, serif;
-    min-height: 98vh;
+    min-height: 99vh;
+    display: flex;
+    margin: 5px;
 }
 
-header {
-    grid-column: span 3;
-    display: grid;
-    grid-template-columns: 1fr 6fr 1fr; /* on click change 1frs to autos */
-    place-items: center;
-    font-size: 4vh;
-    border-bottom: 2px solid;
-}
-
-header .icon {
-    height: 35px;
+#navbar .menu-close.icon {
+    height: 40px;
 }
 
 #navbar {
@@ -33,8 +23,9 @@ header .icon {
     align-items: center;
     padding: 20px;
     border-right: 2px solid;
-    position: sticky;
-    top: 0;
+    min-width: 15vw;
+    position: fixed;
+    height: 94.75vh;
     /* display: none; */ /* on click change to none */
 }
 
@@ -83,16 +74,14 @@ header .icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 7px;
 }
 
-#navbar .trash-project,
-#navbar .edit-project {
+#navbar .added-project img {
     height: 15px;
 }
 
-#navbar .trash-project:hover,
-#navbar .edit-project:hover {
+#navbar .added-project img:hover {
     transform: scale(2);
 }
 
@@ -131,13 +120,46 @@ dialog button {
     justify-content: center;
 }
 
+#container {
+    display: grid;
+    grid-template-rows: 100px auto 30px;
+    grid-template-columns: calc(15vw + 40px) auto calc(15vw + 40px); /* on click change to 1 column */
+}
+
+header {
+    /* grid-column: span 2; */
+    /* display: grid; */
+    /* grid-template-columns: auto 15vw; on click change 1frs to autos */
+    grid-column: 2 / 3;
+    place-self: center;
+    /* display: grid;
+    place-content: center; */
+    font-size: 4vh;
+}
+
 #content {
-    grid-column: span 2;
+    grid-column: 2 / 4;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2vh;
     padding: 20px;
+    border-top: 2px solid;
+}
+
+#content #filter {
+    width: 80%;
+    display: grid;
+    grid-template-columns: 15px 2fr 1fr 1fr 3fr 22px;
+    align-items: center;
+    gap: 5vw;
+    font-size: small;
+    place-self: center;
+    margin-top: -20px;
+}
+
+#content #filter div {
+    cursor: pointer;
 }
 
 #content .added-task {
@@ -152,10 +174,6 @@ dialog button {
     place-self: center;
     height: 30px;
 }
-
-/* #content .added-task > * {
-    margin-bottom: 0px;
-} */
 
 #content .completed {
     background-color: rgb(255, 250, 244);
@@ -184,8 +202,6 @@ dialog button {
 .check-label { 
     display: block;
     position: relative;
-    /* padding-left: 45px;  */
-    /* margin-bottom: 15px; */
     bottom: 5px;
     cursor: pointer;
     font-size: 20px;
@@ -271,8 +287,6 @@ like a tickmark */
 /* #content input:checked {
     accent-color: red;
 } */
-
-
 
 footer {
     grid-column: span 3;
