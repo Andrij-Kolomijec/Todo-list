@@ -169,10 +169,12 @@ header {
     align-items: center;
     gap: 5vw;
     border: 1px dotted;
-    border-radius: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);;
     padding: 10px;
     place-self: center;
     height: 30px;
+    background-color: rgb(243, 222, 194);
 }
 
 #content .completed {

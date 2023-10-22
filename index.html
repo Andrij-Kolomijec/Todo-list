@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css">
-    <!-- <link rel="icon" href="favicon.png"> -->
+    <link rel="icon" href="./icons/check-all.svg">
     <title>Todo list</title>
 </head>
 <body>
@@ -32,6 +32,26 @@
             Completed
         </div>
         <img class="add-task icon" src="./icons/plus-circle-outline.svg">
+        <dialog id="new-task">
+            <form id="new-form">
+                <label for="submit-task">New item</label>
+                <input type="text" id="submit-task" required>
+                <label for="submit-date">Due date</label>
+                <input type="date" id="submit-date">
+                <label for="submit-time">Due time</label>
+                <input type="time" id="submit-time">
+                <label for="submit-notes">Notes</label>
+                <textarea id="submit-notes"></textarea>
+                <label for="priority-selector">Priority</label>
+                <select class="priority" id="priority-selector">
+                    <option value="high">high</option>
+                    <option value="medium">medium</option>
+                    <option value="low">low</option>
+                </select>
+                <button class="submit modal" type="submit">Submit</button>
+                <button class="close modal" formmethod="dialog" type="submit">Close</button>
+            </form>
+        </dialog>
         <br>
         <div class="headline projects">Projects</div>
         <div class="projects-container">
@@ -55,22 +75,10 @@
             </div>
         </div>
         <img class="add-project icon" src="./icons/plus-circle-outline.svg">
-        <dialog id="new-project-task">
-            <form id="new-form">
-                <label for="submit-task">New item</label>
+        <dialog id="new-project">
+            <form id="new-project">
+                <label for="submit-task">New project</label>
                 <input type="text" id="submit-task" required>
-                <label for="submit-date">Due date</label>
-                <input type="date" id="submit-date">
-                <label for="submit-time">Due time</label>
-                <input type="time" id="submit-time">
-                <label for="submit-notes">Notes</label>
-                <textarea id="submit-notes"></textarea>
-                <label for="priority-selector">Priority</label>
-                <select class="priority" id="priority-selector">
-                    <option value="high">high</option>
-                    <option value="medium">medium</option>
-                    <option value="low">low</option>
-                </select>
                 <button class="submit modal" type="submit">Submit</button>
                 <button class="close modal" formmethod="dialog" type="submit">Close</button>
             </form>
