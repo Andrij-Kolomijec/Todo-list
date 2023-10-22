@@ -75,9 +75,16 @@ class Task {
 
 
 
-const button = document.querySelector('.add-project');
-const modal = document.querySelector('#new-project');
+const addTaskButton = document.querySelector('.add-task');
+const taskModal = document.querySelector('#new-task');
 
-button.addEventListener('click', (e) => {
-    modal.showModal();
+addTaskButton.addEventListener('click', (e) => {
+    taskModal.showModal();
+})
+
+const addProjectButton = document.querySelector('.add-project');
+const projectModal = document.querySelector('#new-project');
+
+addProjectButton.addEventListener('click', (e) => {
+    projectModal.showModal();
 })
