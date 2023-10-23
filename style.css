@@ -123,6 +123,7 @@ dialog button {
 #container {
     display: grid;
     grid-template-rows: 100px auto 30px;
+    width: 100%;
     grid-template-columns: calc(15vw + 40px) auto calc(15vw + 40px); /* on click change to 1 column */
 }
 
@@ -193,13 +194,13 @@ header {
     animation: tilt-shaking 0.3s infinite;
 }
 
-#content .svg-container {
+/* #content .svg-container {
     display: flex;
     justify-content: center;
     gap: 5px;
     position: relative;
     right: 15px;
-}
+} */
 
 .check-label { 
     display: block;

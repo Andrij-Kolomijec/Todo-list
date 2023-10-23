@@ -48,14 +48,34 @@
                     <option value="medium">medium</option>
                     <option value="low">low</option>
                 </select>
-                <button class="submit modal" type="submit">Submit</button>
-                <button class="close modal" formmethod="dialog" type="submit">Close</button>
+                <button class="submit-task modal" type="submit">Submit</button>
+                <button class="close-task modal" formmethod="dialog" type="submit">Close</button>
+            </form>
+        </dialog>
+        <dialog id="new-task-in-project">
+            <form id="new-task-in-project-form">
+                <label for="submit-task">New item</label>
+                <input type="text" id="submit-task" required>
+                <label for="submit-date">Due date</label>
+                <input type="date" id="submit-date">
+                <label for="submit-time">Due time</label>
+                <input type="time" id="submit-time">
+                <label for="submit-notes">Notes</label>
+                <textarea id="submit-notes"></textarea>
+                <label for="priority-selector">Priority</label>
+                <select class="priority" id="priority-selector">
+                    <option value="high">high</option>
+                    <option value="medium">medium</option>
+                    <option value="low">low</option>
+                </select>
+                <button class="submit-task-in-project modal" type="submit">Submit</button>
+                <button class="close-task modal" formmethod="dialog" type="submit">Close</button>
             </form>
         </dialog>
         <br>
         <div class="headline projects">Projects</div>
         <div class="projects-container">
-            <div class="added-project">
+            <!-- <div class="added-project">
                 <p>Some project</p>
                 <img class="add-task-in-project" src="./icons/plus-circle-outline.svg">
                 <img class="edit-project" src="./icons/note-edit-outline.svg">
@@ -68,19 +88,19 @@
                 <img class="trash-project" src="./icons/trash-can-outline.svg">
             </div>
             <div class="added-project">
-                <p>Some other project</p>
+                <p>Some awwesome project</p>
                 <img class="add-task-in-project" src="./icons/plus-circle-outline.svg">
                 <img class="edit-project" src="./icons/note-edit-outline.svg">
                 <img class="trash-project" src="./icons/trash-can-outline.svg">
-            </div>
+            </div> -->
         </div>
         <img class="add-project icon" src="./icons/plus-circle-outline.svg">
         <dialog id="new-project">
             <form id="new-project-form">
                 <label for="submit-project">New project</label>
                 <input type="text" id="submit-project" required>
-                <button class="submit modal" type="submit">Submit</button>
-                <button class="close modal" formmethod="dialog" type="submit">Close</button>
+                <button class="submit-project modal" type="submit">Submit</button>
+                <button class="close-project modal" formmethod="dialog" type="submit">Close</button>
             </form>
         </dialog>
     </div>
@@ -95,7 +115,7 @@
                 <div>DUE DATE</div>
                 <div>DUE TIME</div>
             </div>
-            <div class="added-task completed">
+            <!-- <div class="added-task completed">
                 <label class="check-label">
                     <input type="checkbox" checked>
                     <span class="label-box priority-high"></span>
@@ -105,8 +125,8 @@
                 <div class="task-time">25:61</div>
                 <div class="task-notes">ou yeah</div>
                 <div class="svg-container">
-                    <img src="./icons/note-edit-outline.svg">
-                    <img src="./icons/trash-can-outline.svg">
+                    <img class="edit-task" src="./icons/note-edit-outline.svg">
+                    <img class="trash-task" src="./icons/trash-can-outline.svg">
                 </div>
             </div>
             <div class="added-task">
@@ -119,8 +139,8 @@
                 <div class="task-time">--:--</div>
                 <div class="task-notes">ou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeah</div>
                 <div class="svg-container">
-                    <img src="./icons/note-edit-outline.svg">
-                    <img src="./icons/trash-can-outline.svg">
+                    <img class="edit-task" src="./icons/note-edit-outline.svg">
+                    <img class="trash-task" src="./icons/trash-can-outline.svg">
                 </div>
             </div>
             <div class="added-task">
@@ -133,10 +153,10 @@
                 <div class="task-time">--:--</div>
                 <div class="task-notes">ou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeah</div>
                 <div class="svg-container">
-                    <img src="./icons/note-edit-outline.svg">
-                    <img src="./icons/trash-can-outline.svg">
+                    <img class="edit-task" src="./icons/note-edit-outline.svg">
+                    <img class="trash-task" src="./icons/trash-can-outline.svg">
                 </div>
-            </div>
+            </div> -->
             
         </div>
         <footer>
