@@ -6,16 +6,36 @@
 body {
     background-color: antiquewhite;
     font-family: 'Times New Roman', Times, serif;
-    min-height: 99vh;
+    min-height: 98vh;
     display: flex;
     margin: 5px;
 }
 
-#navbar .menu-close.icon {
+.collapsible {
+    height: 100px;
+    width: calc(15vw + 40px);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid;
+}
+
+.collapsible img {
     height: 40px;
+    cursor: pointer;
+}
+
+.menu-open {
+    display: none;
+}
+
+.menu-close {
+    display: block;
 }
 
 #navbar {
+    transition: 0.5s;
     font-size: 2vh;
     display: flex;
     flex-direction: column;
@@ -23,10 +43,10 @@ body {
     align-items: center;
     padding: 20px;
     border-right: 2px solid;
-    min-width: 15vw;
+    width: 15vw;
     position: fixed;
-    height: 94.75vh;
-    /* display: none; */ /* on click change to none */
+    height: 90vh;
+    top: 105px;
 }
 
 #navbar .icon {
@@ -99,7 +119,6 @@ dialog > form {
     grid-template-columns: auto auto;
     gap: 20px;
     padding: 20px;
-    /* justify-items: center; */
 }
 
 dialog button {
@@ -122,6 +141,7 @@ dialog button {
 }
 
 #container {
+    transition: 0.5s;
     display: grid;
     grid-template-rows: 100px auto 30px;
     width: 100%;
@@ -129,13 +149,8 @@ dialog button {
 }
 
 header {
-    /* grid-column: span 2; */
-    /* display: grid; */
-    /* grid-template-columns: auto 15vw; on click change 1frs to autos */
     grid-column: 2 / 3;
     place-self: center;
-    /* display: grid;
-    place-content: center; */
     font-size: 4vh;
 }
 
@@ -194,14 +209,6 @@ header {
     transition: 0.5s;
     animation: tilt-shaking 0.3s infinite;
 }
-
-/* #content .svg-container {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    position: relative;
-    right: 15px;
-} */
 
 .check-label { 
     display: block;
@@ -288,10 +295,6 @@ like a tickmark */
     transform: rotate(38deg);
 } 
 
-/* #content input:checked {
-    accent-color: red;
-} */
-
 footer {
     grid-column: span 3;
     display: flex;
@@ -302,10 +305,6 @@ footer {
 footer .icon {
     height: 35px;
 }
-
-/* body * {
-    border: 1px solid;
-} */
 
 @keyframes tilt-shaking {
     0% { transform: rotate(0deg); }

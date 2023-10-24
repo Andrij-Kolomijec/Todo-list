@@ -355,3 +355,24 @@ showAllTasks();
 //         console.log(task.task, task.date, task.time, task.notes, task.priority, task.completed);
 //     }
 // }
+
+const buttonMenuHide = document.querySelector('.menu-close');
+const buttonMenuOpen = document.querySelector('.menu-open');
+const navbar = document.querySelector('#navbar');
+const container = document.querySelector('#container');
+
+buttonMenuHide.addEventListener('click', () => {
+    navbar.style.width = '0';
+    setTimeout(() => navbar.style.display = 'none', 230);
+    container.style.gridTemplateColumns = '0 auto 0';
+    buttonMenuHide.style.display = 'none';
+    buttonMenuOpen.style.display = 'block';
+})
+
+buttonMenuOpen.addEventListener('click', () => {
+    navbar.style.width = '15vw';
+    setTimeout(() => navbar.style.display = 'flex', 250)
+    container.style.gridTemplateColumns = 'calc(15vw + 40px) auto calc(15vw + 40px)';
+    buttonMenuOpen.style.display = 'none';
+    buttonMenuHide.style.display = 'block';
+})
