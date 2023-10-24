@@ -1,36 +1,55 @@
 const toDoList = {
     "Home Tasks": [{
-        task : 'Shave beaver',
-        date : '31.2.2028',
-        time : '25:61',
-        notes : 'ou yeah',
-        priority : 'high'
+        task : 'Blink',
+        date : '1.1.1111',
+        time : '11:11',
+        notes : 'just blink',
+        priority : 'high',
+        completed: false
         }, {
-        task : 'Shave bever',
-        date : '31.2.2028',
-        time : '25:61',
-        notes : 'ou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeah',
-        priority : 'medium'
+        task : 'Do a flip',
+        date : '2.2.2222',
+        time : '22:22',
+        notes : 'do not hurt yourself',
+        priority : 'medium',
+        completed: false
         }, {
-        task : 'Shave baver',
-        date : '31.2.2028',
-        time : '25:61',
+        task : 'Look out of the window',
+        date : '3.3.3333',
+        time : '33:33',
         notes : 'ou yeah',
-        priority : 'low'
+        priority : 'low',
+        completed: false
         },
     ],
-    "Some project": [],
-    "Some other project": [],
-    "Some awesome project": [],
+    "Completed": [{
+        task : 'Completed task',
+        date : '4.4.4444',
+        time : '44:44',
+        notes : 'finished',
+        priority : 'low',
+        completed: true
+        }],
+    "Chores": [],
+    "Work": [],
+    "Sleep": [{
+        task : 'go to bed',
+        date : 'today',
+        time : '22:00',
+        notes : 'no notes',
+        priority : 'high',
+        completed: false
+        }],
 }
 
 class Task {
-    constructor(task, date, time, notes, priority) {
+    constructor(task, date, time, notes, priority, completed = false) {
         this.task = task;
         this.date = date;
         this.time = time;
         this.notes = notes;
-        this.priority = priority
+        this.priority = priority;
+        this.completed = completed
     }
 
     addToDoList(project = 'Home Tasks') {
@@ -40,6 +59,7 @@ class Task {
             time: this.time,
             notes: this.notes,
             priority: this.priority,
+            completed: this.completed
         }
         toDoList[project].push(toBeAdded);
     }
@@ -47,8 +67,8 @@ class Task {
 
 function showAllTasks(project = 'Home Tasks') {
     clearAllTasks();
-    for (let tasks in toDoList[project]) {
-        showTask(toDoList[project][tasks], toDoList[project][tasks], toDoList[project][tasks], toDoList[project][tasks], toDoList[project][tasks]);
+    for (let task of toDoList[project]) { 
+        showTask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
     }
 }
 
@@ -57,7 +77,7 @@ function clearAllTasks() {
     allTasks.forEach(element => element.remove());
 }
 
-function showTask({task, date, time, notes, priority}) {
+function showTask(task, date, time, notes, priority, completed) {
     const content = document.querySelector('#content');
 
     const addedTask = document.createElement('div');
@@ -69,23 +89,27 @@ function showTask({task, date, time, notes, priority}) {
     const taskDate = document.createElement('div');
     const taskTime = document.createElement('div');
     const taskNotes = document.createElement('div');
-    // const svgContainer = document.createElement('div');
-    // const imgEdit = document.createElement('img');
     const imgTrash = document.createElement('img');
 
     addedTask.setAttribute('class', 'added-task');
     checkLabel.setAttribute('class', 'check-label');
     checkbox.setAttribute('type', 'checkbox');
+    checkbox.setAttribute('class', 'checkbox');
     labelBox.classList.add('label-box', `priority-${priority}`);
     taskName.setAttribute('class', 'task-name');
     taskDate.setAttribute('class', 'task-date');
     taskTime.setAttribute('class', 'task-time');
     taskNotes.setAttribute('class', 'task-notes');
-    // svgContainer.setAttribute('class', 'svg-container');
-    // imgEdit.setAttribute('class', 'edit-task');
     imgTrash.setAttribute('class', 'trash-task');
 
-    // imgEdit.src = './icons/note-edit-outline.svg';
+    if (completed) {
+        addedTask.classList.add('completed');
+        checkbox.checked = true;
+    } else {
+        addedTask.classList.remove('completed');
+        checkbox.checked = false;
+    }
+
     imgTrash.src = './icons/trash-can-outline.svg';
 
     strong.textContent = `${task}`;
@@ -95,7 +119,6 @@ function showTask({task, date, time, notes, priority}) {
 
     taskName.append(strong);
     checkLabel.append(checkbox, labelBox);
-    // svgContainer.append(imgEdit, imgTrash);
     addedTask.append(checkLabel, taskName, taskDate, taskTime, taskNotes, imgTrash);
     content.append(addedTask);
 }
@@ -112,20 +135,10 @@ function createNewTask() {
 function submitTask(e) {
     e.preventDefault();
     if (taskForm.reportValidity()) {
-        createNewTask().addToDoList();
-        showAllTasks();
+        createNewTask().addToDoList(targetProject);
+        showAllTasks(targetProject);
         taskForm.reset();
         taskDialog.close();
-    };
-}
-
-function submitTaskViaProject(e, project) {
-    e.preventDefault();
-    if (taskInProjectForm.reportValidity()) {
-        createNewTask().addToDoList(project);
-        showAllTasks();
-        taskInProjectForm.reset();
-        taskInProjectDialog.close();
     };
 }
 
@@ -152,16 +165,14 @@ function showProject(project) {
     const addedProject = document.createElement('div');
     const p = document.createElement('p');
     const imgTask = document.createElement('img');
-    // const imgEdit = document.createElement('img');
     const imgTrash = document.createElement('img');
 
     imgTask.src = './icons/plus-circle-outline.svg';
-    // imgEdit.src = './icons/note-edit-outline.svg';
     imgTrash.src = './icons/trash-can-outline.svg';
 
     addedProject.setAttribute('class', 'added-project');
+    p.setAttribute('class', 'project');
     imgTask.setAttribute('class', 'add-task-in-project');
-    // imgEdit.setAttribute('class', 'edit-project');
     imgTrash.setAttribute('class', 'trash-project');
 
     p.textContent = `${project}`;
@@ -173,7 +184,7 @@ function showProject(project) {
 function showAllProjects() {
     clearAllProjects();
     for (let project in toDoList) {
-        if (project !== 'Home Tasks') {
+        if (project !== 'Home Tasks' && project !== 'Completed') {
             showProject(project);
         }
     }
@@ -199,29 +210,16 @@ function submitProject(e) {
     }
 }
 
-// function editProject(e) {
-//     if (e.target.matches('.edit-project')) {
-//         projectDialog.showModal();
-//         const targetP = e.target.parentNode.querySelector('p').textContent;
-//         for (let project in toDoList) {
-//             if (targetP === project) {
-//                 delete toDoList[project];
-//                 e.target.parentNode.remove();
-//             }
-//         }
-//     }
-// }
-
 function addTaskInProject(e) {
     if (e.target.matches('.add-task-in-project')) {
-        const project = e.target.parentNode.querySelector('p').textContent;
-        buttonSubmitTaskInProject.addEventListener('click', e => submitTaskViaProject(e, project));
-        // const project = e.target.parentNode.querySelector('p').textContent;
-        console.log(project);
-        taskInProjectDialog.showModal();
-        // buttonSubmitTask.removeEventListener('click', e => submitTask(e));
-        // buttonSubmitTask.addEventListener('click', e => submitTask(e, project));
+        targetProject = e.target.parentNode.querySelector('p').textContent;
+        taskDialog.showModal();
     }
+}
+
+function addTaskInHomeTasks() {
+    taskDialog.showModal();
+    targetProject = 'Home Tasks';
 }
 
 function deleteProject(e) {
@@ -236,10 +234,76 @@ function deleteProject(e) {
     }
 }
 
+function switchProjects(e) {
+    if (e.target.matches('.project')) {
+        showAllTasks(e.target.parentNode.querySelector('p').textContent);
+    } else if (e.target.matches('.all-tasks')) {
+        showAllTasks();
+    }
+}
+
+function markIncomplete(e) {
+    const targetTitle = e.target.parentNode.parentNode.querySelector('strong').textContent;
+    const targetDate = e.target.parentNode.parentNode.querySelector('.task-date').textContent;
+    const targetTime = e.target.parentNode.parentNode.querySelector('.task-time').textContent;
+    const targetNotes = e.target.parentNode.parentNode.querySelector('.task-notes').textContent;
+
+    e.target.parentNode.parentNode.classList.remove('completed');
+    for (let project in toDoList) {
+        for (let task of toDoList[project]) {
+            if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
+                task.completed = false;
+                if (project === 'Completed') {
+                    const newIncompleteTask = new Task(task.task, task.date, task.time, task.notes, task.priority, task.complete);
+                    newIncompleteTask.addToDoList('Home Tasks');
+                    toDoList['Completed'].splice(toDoList[project].indexOf(task), 1);
+                }
+            }
+        }
+    }
+}
+
+function markCompleted(e) {
+    const targetTitle = e.target.parentNode.parentNode.querySelector('strong').textContent;
+    const targetDate = e.target.parentNode.parentNode.querySelector('.task-date').textContent;
+    const targetTime = e.target.parentNode.parentNode.querySelector('.task-time').textContent;
+    const targetNotes = e.target.parentNode.parentNode.querySelector('.task-notes').textContent;
+
+    e.target.parentNode.parentNode.classList.add('completed');
+    for (let project in toDoList) {
+        for (let task of toDoList[project]) {
+            if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
+                task.completed = true;
+                if (project === 'Home Tasks') {
+                    const newCompletedTask = new Task(task.task, task.date, task.time, task.notes, task.priority, task.complete);
+                    newCompletedTask.addToDoList('Completed');
+                    toDoList['Home Tasks'].splice(toDoList[project].indexOf(task), 1);
+                }
+            }
+        }
+    }
+}
+
+function markTask(e) {
+    if (e.target.matches('.label-box')) {
+        if (e.target.previousElementSibling.checked) {
+            markIncomplete(e);
+        } else {
+            markCompleted(e);
+        }
+    }
+}
+
+function showCompleted() {
+    clearAllTasks();
+    showAllTasks('Completed');
+}
+ 
 const buttonSubmitTask = document.querySelector('.submit-task');
 const buttonSubmitProject = document.querySelector('.submit-project');
 const buttonCancelTaskDialog = document.querySelector('.close-task');
 const buttonCancelProjectDialog = document.querySelector('.close-project');
+const buttonCompleted = document.querySelector('.completed');
 const taskForm = document.querySelector('#new-task-form');
 const projectForm = document.querySelector('#new-project-form');
 const buttonAddTask = document.querySelector('.add-task');
@@ -247,26 +311,21 @@ const buttonAddProject = document.querySelector('.add-project');
 const taskDialog = document.querySelector('#new-task');
 const projectDialog = document.querySelector('#new-project');
 const dialogs = document.querySelectorAll('dialog');
+let targetProject = 'Home Tasks';
 
-const buttonSubmitTaskInProject = document.querySelector('.submit-task-in-project');
-const taskInProjectForm = document.querySelector('#new-task-in-project-form');
-const taskInProjectDialog = document.querySelector('#new-task-in-project');
 document.addEventListener('click', e => addTaskInProject(e));
-
-
 document.addEventListener('click', e => deleteTask(e));
 document.addEventListener('click', e => deleteProject(e));
-// document.addEventListener('click', e => editProject(e));
-// document.addEventListener('click', e => editTask(e));
+document.addEventListener('click', e => switchProjects(e));
+document.addEventListener('click', e => markTask(e));
 
-
-buttonAddTask.addEventListener('click', () => taskDialog.showModal());
+buttonAddTask.addEventListener('click', addTaskInHomeTasks);
 buttonAddProject.addEventListener('click', () => projectDialog.showModal());
-
 buttonSubmitProject.addEventListener('click', e => submitProject(e));
 buttonSubmitTask.addEventListener('click', e => submitTask(e));
 buttonCancelTaskDialog.addEventListener('click', () => taskDialog.close());
 buttonCancelProjectDialog.addEventListener('click', () => projectDialog.close());
+buttonCompleted.addEventListener('click', showCompleted);
 
 taskForm.addEventListener('keydown', e => {
     if (e.key === 'Enter') submitTask(e);
@@ -290,17 +349,9 @@ dialogs.forEach(dialog => dialog.addEventListener('click', e => {
 showAllProjects();
 showAllTasks();
 
-
-
-
-// const myTask = new Task(
-//     'Shave beaver',
-//     '31.2.2028',
-//     '25:61',
-//     'ou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeahou yeah',
-//     'medium'
-// );
-
-// myTask.addToDoList();
-
-// myTask.addToDoList('Some project');
+// for (let project in toDoList) {
+//     console.log(project);
+//     for (let task of toDoList[project]) {
+//         console.log(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+//     }
+// }

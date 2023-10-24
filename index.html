@@ -48,28 +48,8 @@
                     <option value="medium">medium</option>
                     <option value="low">low</option>
                 </select>
+                <button class="close-task modal" formmethod="dialog" type="submit">Close</button>
                 <button class="submit-task modal" type="submit">Submit</button>
-                <button class="close-task modal" formmethod="dialog" type="submit">Close</button>
-            </form>
-        </dialog>
-        <dialog id="new-task-in-project">
-            <form id="new-task-in-project-form">
-                <label for="submit-task">New item</label>
-                <input type="text" id="submit-task" required>
-                <label for="submit-date">Due date</label>
-                <input type="date" id="submit-date">
-                <label for="submit-time">Due time</label>
-                <input type="time" id="submit-time">
-                <label for="submit-notes">Notes</label>
-                <textarea id="submit-notes"></textarea>
-                <label for="priority-selector">Priority</label>
-                <select class="priority" id="priority-selector">
-                    <option value="high">high</option>
-                    <option value="medium">medium</option>
-                    <option value="low">low</option>
-                </select>
-                <button class="submit-task-in-project modal" type="submit">Submit</button>
-                <button class="close-task modal" formmethod="dialog" type="submit">Close</button>
             </form>
         </dialog>
         <br>
@@ -99,8 +79,8 @@
             <form id="new-project-form">
                 <label for="submit-project">New project</label>
                 <input type="text" id="submit-project" required>
-                <button class="submit-project modal" type="submit">Submit</button>
                 <button class="close-project modal" formmethod="dialog" type="submit">Close</button>
+                <button class="submit-project modal" type="submit">Submit</button>
             </form>
         </dialog>
     </div>

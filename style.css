@@ -99,6 +99,7 @@ dialog > form {
     grid-template-columns: auto auto;
     gap: 20px;
     padding: 20px;
+    /* justify-items: center; */
 }
 
 dialog button {
