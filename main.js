@@ -363,7 +363,8 @@ const container = document.querySelector('#container');
 
 buttonMenuHide.addEventListener('click', () => {
     navbar.style.width = '0';
-    setTimeout(() => navbar.style.display = 'none', 230);
+    // setTimeout(() => navbar.style.display = 'none', 230);
+    navbar.style.marginLeft = '-100px';
     container.style.gridTemplateColumns = '0 auto 0';
     buttonMenuHide.style.display = 'none';
     buttonMenuOpen.style.display = 'block';
@@ -371,7 +372,8 @@ buttonMenuHide.addEventListener('click', () => {
 
 buttonMenuOpen.addEventListener('click', () => {
     navbar.style.width = '15vw';
-    setTimeout(() => navbar.style.display = 'flex', 250)
+    navbar.style.marginLeft = '0px';
+    // setTimeout(() => navbar.style.display = 'flex', 250)
     container.style.gridTemplateColumns = 'calc(15vw + 40px) auto calc(15vw + 40px)';
     buttonMenuOpen.style.display = 'none';
     buttonMenuHide.style.display = 'block';
