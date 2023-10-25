@@ -298,12 +298,127 @@ function showCompleted() {
     clearAllTasks();
     showAllTasks('Completed');
 }
+
+function orderByTask() {
+    const project = findOutProject();
+    toDoList[project].sort((task1, task2) => {
+        const parameterName1 = task1.task.toLowerCase();
+        const parameterName2 = task2.task.toLowerCase();
+        if (parameterName1 < parameterName2) {
+            return -1;
+        }
+        if (parameterName1 > parameterName2) {
+            return 1;
+        }
+        return 0;
+    });
+    showAllTasks(project);
+}
+
+function orderByDate() {
+    const project = findOutProject();
+    toDoList[project].sort((date1, date2) => {
+        const parameterName1 = date1.date;
+        const parameterName2 = date2.date;
+        if (parameterName1 < parameterName2) {
+            return -1;
+        }
+        if (parameterName1 > parameterName2) {
+            return 1;
+        }
+        return 0;
+    });
+    showAllTasks(project);
+}
+
+function orderByTime() {
+    const project = findOutProject();
+    toDoList[project].sort((time1, time2) => {
+        const parameterName1 = time1.time;
+        const parameterName2 = time2.time;
+        if (parameterName1 < parameterName2) {
+            return -1;
+        }
+        if (parameterName1 > parameterName2) {
+            return 1;
+        }
+        return 0;
+    });
+    showAllTasks(project);
+}
+
+function orderByNotes() {
+    const project = findOutProject();
+    toDoList[project].sort((notes1, notes2) => {
+        const parameterName1 = notes1.notes.toLowerCase();
+        const parameterName2 = notes2.notes.toLowerCase();
+        if (parameterName1 < parameterName2) {
+            return -1;
+        }
+        if (parameterName1 > parameterName2) {
+            return 1;
+        }
+        return 0;
+    });
+    showAllTasks(project);
+}
+
+function orderByPriority() {
+    const project = findOutProject();
+    toDoList[project].sort((priority1, priority2) => {
+        const parameterName1 = refactorPriority(priority1.priority);
+        const parameterName2 = refactorPriority(priority2.priority);       
+        if (parameterName1 < parameterName2) {
+            return -1;
+        }
+        if (parameterName1 > parameterName2) {
+            return 1;
+        }
+        return 0;
+    });
+    showAllTasks(project);
+}
+
+function refactorPriority(priority) {
+    if (priority === 'high') {
+        return priority = 1;
+    } else if (priority === 'medium') {
+        return priority = 2;
+    } else if (priority === 'low') {
+        return priority = 3;
+    }
+}
+
+function findOutProject() {
+    const allTasksOnPage = document.querySelectorAll('.added-task');
+    let projectFound = null;
+    allTasksOnPage.forEach(task => {
+        const title = task.querySelector('.task-name').textContent;
+        const date = task.querySelector('.task-date').textContent;
+        const time = task.querySelector('.task-time').textContent;
+        const notes = task.querySelector('.task-notes').textContent;
+        for (let project in toDoList) {
+            for (task of toDoList[project]) {
+                if (task.task === title && task.date === date && task.time === time && task.notes === notes) {
+                    projectFound = project;
+                }
+            }
+            if (projectFound) break;
+        }
+    })
+    return projectFound; 
+}
  
 const buttonSubmitTask = document.querySelector('.submit-task');
 const buttonSubmitProject = document.querySelector('.submit-project');
 const buttonCancelTaskDialog = document.querySelector('.close-task');
 const buttonCancelProjectDialog = document.querySelector('.close-project');
 const buttonCompleted = document.querySelector('.completed');
+const buttonSortByTask = document.querySelector('#sort-by-task');
+const buttonSortByDate = document.querySelector('#sort-by-date');
+const buttonSortByTime = document.querySelector('#sort-by-time');
+const buttonSortByNotes = document.querySelector('#sort-by-notes');
+const buttonSortByPriority = document.querySelector('#sort-by-priority');
 const taskForm = document.querySelector('#new-task-form');
 const projectForm = document.querySelector('#new-project-form');
 const buttonAddTask = document.querySelector('.add-task');
@@ -311,6 +426,10 @@ const buttonAddProject = document.querySelector('.add-project');
 const taskDialog = document.querySelector('#new-task');
 const projectDialog = document.querySelector('#new-project');
 const dialogs = document.querySelectorAll('dialog');
+const buttonMenuHide = document.querySelector('.menu-close');
+const buttonMenuOpen = document.querySelector('.menu-open');
+const navbar = document.querySelector('#navbar');
+const container = document.querySelector('#container');
 let targetProject = 'Home Tasks';
 
 document.addEventListener('click', e => addTaskInProject(e));
@@ -319,6 +438,11 @@ document.addEventListener('click', e => deleteProject(e));
 document.addEventListener('click', e => switchProjects(e));
 document.addEventListener('click', e => markTask(e));
 
+buttonSortByTask.addEventListener('click', orderByTask);
+buttonSortByDate.addEventListener('click', orderByDate);
+buttonSortByTime.addEventListener('click', orderByTime);
+buttonSortByNotes.addEventListener('click', orderByNotes);
+buttonSortByPriority.addEventListener('click', orderByPriority);
 buttonAddTask.addEventListener('click', addTaskInHomeTasks);
 buttonAddProject.addEventListener('click', () => projectDialog.showModal());
 buttonSubmitProject.addEventListener('click', e => submitProject(e));
@@ -346,24 +470,8 @@ dialogs.forEach(dialog => dialog.addEventListener('click', e => {
     }
 }))
 
-showAllProjects();
-showAllTasks();
-
-// for (let project in toDoList) {
-//     console.log(project);
-//     for (let task of toDoList[project]) {
-//         console.log(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-//     }
-// }
-
-const buttonMenuHide = document.querySelector('.menu-close');
-const buttonMenuOpen = document.querySelector('.menu-open');
-const navbar = document.querySelector('#navbar');
-const container = document.querySelector('#container');
-
 buttonMenuHide.addEventListener('click', () => {
     navbar.style.width = '0';
-    // setTimeout(() => navbar.style.display = 'none', 230);
     navbar.style.marginLeft = '-100px';
     container.style.gridTemplateColumns = '0 auto 0';
     buttonMenuHide.style.display = 'none';
@@ -373,8 +481,17 @@ buttonMenuHide.addEventListener('click', () => {
 buttonMenuOpen.addEventListener('click', () => {
     navbar.style.width = '15vw';
     navbar.style.marginLeft = '0px';
-    // setTimeout(() => navbar.style.display = 'flex', 250)
     container.style.gridTemplateColumns = 'calc(15vw + 40px) auto calc(15vw + 40px)';
     buttonMenuOpen.style.display = 'none';
     buttonMenuHide.style.display = 'block';
 })
+
+showAllProjects();
+showAllTasks();
+
+// for (let project in toDoList) {
+//     console.log(project);
+//     for (let task of toDoList[project]) {
+//         console.log(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+//     }
+// }
