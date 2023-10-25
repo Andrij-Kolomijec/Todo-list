@@ -1,21 +1,21 @@
-const toDoList = {
+let toDoList = {
     "Home Tasks": [{
         task : 'Blink',
-        date : '1.1.2024',
+        date : '2024-01-01',
         time : '11:11',
         notes : 'just blink',
         priority : 'high',
         completed: false
         }, {
         task : 'Do a flip',
-        date : '22.4.2023',
+        date : '2023-04-22',
         time : '22:22',
         notes : 'do not hurt yourself',
         priority : 'medium',
         completed: false
         }, {
         task : 'Look out of the window',
-        date : '3.3.2023',
+        date : '2023-03-03',
         time : '18:33',
         notes : 'ou yeah',
         priority : 'low',
@@ -24,7 +24,7 @@ const toDoList = {
     ],
     "Completed": [{
         task : 'Completed task',
-        date : '4.4.2022',
+        date : '2022-04-04',
         time : '15:44',
         notes : 'finished',
         priority : 'low',
@@ -34,13 +34,19 @@ const toDoList = {
     "Work": [],
     "Sleep": [{
         task : 'go to bed',
-        date : '25.10.2023',
+        date : '2023-10-25',
         time : '22:00',
         notes : 'no notes',
         priority : 'high',
         completed: false
         }],
 }
+
+// if (!localStorage.getItem('toDoList')) {
+//     localStorage.setItem('toDoList', {toDoList});
+// } else {
+//     toDoList = localStorage.getItem('toDoList');
+// }
 
 class Task {
     constructor(task, date, time, notes, priority, completed = false) {
@@ -70,6 +76,7 @@ function showAllTasks(project = 'Home Tasks') {
     for (let task of toDoList[project]) { 
         showTask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
     }
+    // localStorage.setItem('toDoList', toDoList);
 }
 
 function clearAllTasks() {
@@ -488,6 +495,8 @@ buttonMenuOpen.addEventListener('click', () => {
 
 showAllProjects();
 showAllTasks();
+
+// localStorage.setItem('toDoList', toDoList);
 
 // for (let project in toDoList) {
 //     console.log(project);
