@@ -1,22 +1,22 @@
 const toDoList = {
     "Home Tasks": [{
         task : 'Blink',
-        date : '1.1.1111',
+        date : '1.1.2024',
         time : '11:11',
         notes : 'just blink',
         priority : 'high',
         completed: false
         }, {
         task : 'Do a flip',
-        date : '2.2.2222',
+        date : '22.4.2023',
         time : '22:22',
         notes : 'do not hurt yourself',
         priority : 'medium',
         completed: false
         }, {
         task : 'Look out of the window',
-        date : '3.3.3333',
-        time : '33:33',
+        date : '3.3.2023',
+        time : '18:33',
         notes : 'ou yeah',
         priority : 'low',
         completed: false
@@ -24,8 +24,8 @@ const toDoList = {
     ],
     "Completed": [{
         task : 'Completed task',
-        date : '4.4.4444',
-        time : '44:44',
+        date : '4.4.2022',
+        time : '15:44',
         notes : 'finished',
         priority : 'low',
         completed: true
@@ -34,7 +34,7 @@ const toDoList = {
     "Work": [],
     "Sleep": [{
         task : 'go to bed',
-        date : 'today',
+        date : '25.10.2023',
         time : '22:00',
         notes : 'no notes',
         priority : 'high',
