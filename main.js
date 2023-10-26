@@ -42,11 +42,11 @@ let toDoList = {
         }],
 }
 
-// if (!localStorage.getItem('toDoList')) {
-//     localStorage.setItem('toDoList', {toDoList});
-// } else {
-//     toDoList = localStorage.getItem('toDoList');
-// }
+if (!localStorage.getItem('toDoList')) {
+    localStorage.setItem('toDoList', JSON.stringify(toDoList));
+} else {
+    toDoList = JSON.parse(localStorage.getItem('toDoList'));
+}
 
 class Task {
     constructor(task, date, time, notes, priority, completed = false) {
@@ -76,7 +76,6 @@ function showAllTasks(project = 'Home Tasks') {
     for (let task of toDoList[project]) { 
         showTask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
     }
-    // localStorage.setItem('toDoList', toDoList);
 }
 
 function clearAllTasks() {
@@ -415,6 +414,10 @@ function findOutProject() {
     })
     return projectFound; 
 }
+
+function saveToLocalStorage() {
+    localStorage.setItem('toDoList', JSON.stringify(toDoList));
+}
  
 const buttonSubmitTask = document.querySelector('.submit-task');
 const buttonSubmitProject = document.querySelector('.submit-project');
@@ -444,6 +447,7 @@ document.addEventListener('click', e => deleteTask(e));
 document.addEventListener('click', e => deleteProject(e));
 document.addEventListener('click', e => switchProjects(e));
 document.addEventListener('click', e => markTask(e));
+document.addEventListener('click', saveToLocalStorage);
 
 buttonSortByTask.addEventListener('click', orderByTask);
 buttonSortByDate.addEventListener('click', orderByDate);
