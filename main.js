@@ -1,21 +1,21 @@
 let toDoList = {
     "Home Tasks": [{
         task : 'Blink',
-        date : '2024-01-01',
+        date : '2023-10-25',
         time : '11:11',
         notes : 'just blink',
         priority : 'high',
         completed: false
         }, {
         task : 'Do a flip',
-        date : '2023-04-22',
+        date : '2023-10-26',
         time : '22:22',
         notes : 'do not hurt yourself',
         priority : 'medium',
         completed: false
         }, {
         task : 'Look out of the window',
-        date : '2023-03-03',
+        date : '2023-10-28',
         time : '18:33',
         notes : 'ou yeah',
         priority : 'low',
@@ -24,17 +24,52 @@ let toDoList = {
     ],
     "Completed": [{
         task : 'Completed task',
-        date : '2022-04-04',
+        date : '2023-10-31',
         time : '15:44',
         notes : 'finished',
         priority : 'low',
         completed: true
         }],
-    "Chores": [],
-    "Work": [],
+    "Chores": [{
+        task : 'do the dishes',
+        date : '2023-10-28',
+        time : '12:00',
+        notes : 'use water',
+        priority : 'low',
+        completed: false
+        },{
+        task : 'dust the ceilings',
+        date : '2023-10-29',
+        time : '08:00',
+        notes : 'do not jump',
+        priority : 'medium',
+        completed: false
+        },{
+        task : 'balance all the leafs',
+        date : '2023-10-30',
+        time : '11:00',
+        notes : 'only the green ones',
+        priority : 'high',
+        completed: false
+        }],
+    "Work": [{
+        task : 'work a lot',
+        date : '2023-11-04',
+        time : '22:00',
+        notes : 'no notes',
+        priority : 'medium',
+        completed: false
+        },{
+        task : 'go to work',
+        date : '2023-11-03',
+        time : '09:00',
+        notes : 'a lot of notes',
+        priority : 'high',
+        completed: false
+        }],
     "Sleep": [{
         task : 'go to bed',
-        date : '2023-10-25',
+        date : '2023-11-02',
         time : '22:00',
         notes : 'no notes',
         priority : 'high',
@@ -418,7 +453,48 @@ function findOutProject() {
 function saveToLocalStorage() {
     localStorage.setItem('toDoList', JSON.stringify(toDoList));
 }
- 
+
+function showTodaysTasks() {
+    showAllTasks();
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const currentDate = `${year}-${month}-${day}`;
+    const allDates = document.querySelectorAll('.added-task');
+    allDates.forEach(element => {
+        const date = element.querySelector('.task-date').textContent;
+        if (currentDate !== date) {
+            element.remove();
+        }
+    })
+}
+
+function showWeeksTasks() {
+    showAllTasks();
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const startDate = `${year}-${month}-${day}`;
+
+    const newDate = new Date(today);
+    newDate.setDate(today.getDate() + 7);
+    const newYear = newDate.getFullYear();
+    const newMonth = String(newDate.getMonth() + 1).padStart(2, '0');
+    const newDay = String(newDate.getDate()).padStart(2, '0');
+    const endDate = `${newYear}-${newMonth}-${newDay}`;
+
+    const allDates = document.querySelectorAll('.added-task');
+    allDates.forEach(element => {
+        const date = element.querySelector('.task-date').textContent;
+        if (startDate >= date || endDate < date) {
+            console.log(date);
+            element.remove();
+        }
+    })
+}
+
 const buttonSubmitTask = document.querySelector('.submit-task');
 const buttonSubmitProject = document.querySelector('.submit-project');
 const buttonCancelTaskDialog = document.querySelector('.close-task');
@@ -433,6 +509,8 @@ const taskForm = document.querySelector('#new-task-form');
 const projectForm = document.querySelector('#new-project-form');
 const buttonAddTask = document.querySelector('.add-task');
 const buttonAddProject = document.querySelector('.add-project');
+const buttonToday = document.querySelector('.today');
+const buttonWeek = document.querySelector('.week');
 const taskDialog = document.querySelector('#new-task');
 const projectDialog = document.querySelector('#new-project');
 const dialogs = document.querySelectorAll('dialog');
@@ -461,6 +539,8 @@ buttonSubmitTask.addEventListener('click', e => submitTask(e));
 buttonCancelTaskDialog.addEventListener('click', () => taskDialog.close());
 buttonCancelProjectDialog.addEventListener('click', () => projectDialog.close());
 buttonCompleted.addEventListener('click', showCompleted);
+buttonToday.addEventListener('click', showTodaysTasks);
+buttonWeek.addEventListener('click', showWeeksTasks);
 
 taskForm.addEventListener('keydown', e => {
     if (e.key === 'Enter') submitTask(e);
@@ -499,12 +579,3 @@ buttonMenuOpen.addEventListener('click', () => {
 
 showAllProjects();
 showAllTasks();
-
-// localStorage.setItem('toDoList', toDoList);
-
-// for (let project in toDoList) {
-//     console.log(project);
-//     for (let task of toDoList[project]) {
-//         console.log(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-//     }
-// }
