@@ -212,6 +212,10 @@ header {
     animation: tilt-shaking 0.3s infinite;
 }
 
+#content #sort-by-priority {
+    margin-left: -12px;
+}
+
 .check-label { 
     display: block;
     position: relative;
