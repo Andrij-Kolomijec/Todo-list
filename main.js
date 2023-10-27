@@ -565,16 +565,25 @@ buttonMenuHide.addEventListener('click', () => {
     navbar.style.width = '0';
     navbar.style.marginLeft = '-100px';
     container.style.gridTemplateColumns = '0 auto 0';
-    buttonMenuHide.style.display = 'none';
-    buttonMenuOpen.style.display = 'block';
+    buttonMenuHide.style.marginLeft = '-130px';
+    buttonMenuOpen.style.marginLeft = '-130px';
+    setTimeout(() => {
+        buttonMenuHide.style.display = 'none';
+        buttonMenuOpen.style.display = 'block';
+    }, 500)
 })
 
 buttonMenuOpen.addEventListener('click', () => {
     navbar.style.width = '15vw';
     navbar.style.marginLeft = '0px';
     container.style.gridTemplateColumns = 'calc(15vw + 40px) auto calc(15vw + 40px)';
-    buttonMenuOpen.style.display = 'none';
-    buttonMenuHide.style.display = 'block';
+    buttonMenuHide.style.marginLeft = '0';
+    buttonMenuOpen.style.marginLeft = '0';
+    setTimeout(() => {
+        buttonMenuOpen.style.display = 'none';
+        buttonMenuHide.style.display = 'block';
+    }, 500)
+    
 })
 
 showAllProjects();
