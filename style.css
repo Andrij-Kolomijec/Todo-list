@@ -146,7 +146,7 @@ dialog button {
     display: grid;
     grid-template-rows: 11vh auto 30px;
     width: 100%;
-    grid-template-columns: calc(15vw + 40px) auto calc(15vw + 40px); /* on click change to 1 column */
+    grid-template-columns: calc(15vw + 40px) auto calc(15vw + 40px);
 }
 
 header {
@@ -166,7 +166,7 @@ header {
 }
 
 #content #filter {
-    width: 80%;
+    width: 85%;
     display: grid;
     grid-template-columns: 15px 2fr 1fr 1fr 3fr 22px;
     align-items: center;
@@ -181,7 +181,7 @@ header {
 }
 
 #content .added-task {
-    width: 80%;
+    width: 85%;
     display: grid;
     grid-template-columns: auto 2fr 1fr 1fr 3fr 22px;
     align-items: center;

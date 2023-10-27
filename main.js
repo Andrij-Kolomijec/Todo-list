@@ -20,16 +20,15 @@ let toDoList = {
         notes : 'ou yeah',
         priority : 'low',
         completed: false
-        },
-    ],
-    "Completed": [{
+        }, {
         task : 'Completed task',
         date : '2023-10-31',
         time : '15:44',
         notes : 'finished',
         priority : 'low',
         completed: true
-        }],
+        }
+    ],
     "Chores": [{
         task : 'do the dishes',
         date : '2023-10-28',
@@ -106,10 +105,22 @@ class Task {
     }
 }
 
-function showAllTasks(project = 'Home Tasks') {
+function showAllTasks() {
+    for (let project in toDoList) {
+        for (let task of toDoList[project]) {
+            if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+        }
+    }
+}
+
+function showTasks(project = 'Home Tasks') {
     clearAllTasks();
-    for (let task of toDoList[project]) { 
-        showTask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    if (project === 'Home Tasks') {
+        showAllTasks();
+    } else {
+        for (let task of toDoList[project]) { 
+            if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+        }
     }
 }
 
@@ -118,7 +129,7 @@ function clearAllTasks() {
     allTasks.forEach(element => element.remove());
 }
 
-function showTask(task, date, time, notes, priority, completed) {
+function showATask(task, date, time, notes, priority, completed = false) {
     const content = document.querySelector('#content');
 
     const addedTask = document.createElement('div');
@@ -137,6 +148,7 @@ function showTask(task, date, time, notes, priority, completed) {
     checkbox.setAttribute('type', 'checkbox');
     checkbox.setAttribute('class', 'checkbox');
     labelBox.classList.add('label-box', `priority-${priority}`);
+    labelBox.setAttribute('data-priority', priority)
     taskName.setAttribute('class', 'task-name');
     taskDate.setAttribute('class', 'task-date');
     taskTime.setAttribute('class', 'task-time');
@@ -145,6 +157,7 @@ function showTask(task, date, time, notes, priority, completed) {
 
     if (completed) {
         addedTask.classList.add('completed');
+        addedTask.setAttribute('data-completed', completed);
         checkbox.checked = true;
     } else {
         addedTask.classList.remove('completed');
@@ -177,7 +190,7 @@ function submitTask(e) {
     e.preventDefault();
     if (taskForm.reportValidity()) {
         createNewTask().addToDoList(targetProject);
-        showAllTasks(targetProject);
+        showTasks(targetProject);
         taskForm.reset();
         taskDialog.close();
     };
@@ -225,7 +238,7 @@ function showProject(project) {
 function showAllProjects() {
     clearAllProjects();
     for (let project in toDoList) {
-        if (project !== 'Home Tasks' && project !== 'Completed') {
+        if (project !== 'Home Tasks') {
             showProject(project);
         }
     }
@@ -277,9 +290,9 @@ function deleteProject(e) {
 
 function switchProjects(e) {
     if (e.target.matches('.project')) {
-        showAllTasks(e.target.parentNode.querySelector('p').textContent);
+        showTasks(e.target.parentNode.querySelector('p').textContent);
     } else if (e.target.matches('.all-tasks')) {
-        showAllTasks();
+        showTasks();
     }
 }
 
@@ -290,15 +303,11 @@ function markIncomplete(e) {
     const targetNotes = e.target.parentNode.parentNode.querySelector('.task-notes').textContent;
 
     e.target.parentNode.parentNode.classList.remove('completed');
+    e.target.parentNode.parentNode.removeAttribute('data-completed');
     for (let project in toDoList) {
         for (let task of toDoList[project]) {
             if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
                 task.completed = false;
-                if (project === 'Completed') {
-                    const newIncompleteTask = new Task(task.task, task.date, task.time, task.notes, task.priority, task.complete);
-                    newIncompleteTask.addToDoList('Home Tasks');
-                    toDoList['Completed'].splice(toDoList[project].indexOf(task), 1);
-                }
             }
         }
     }
@@ -311,15 +320,11 @@ function markCompleted(e) {
     const targetNotes = e.target.parentNode.parentNode.querySelector('.task-notes').textContent;
 
     e.target.parentNode.parentNode.classList.add('completed');
+    e.target.parentNode.parentNode.setAttribute('data-completed', true);
     for (let project in toDoList) {
         for (let task of toDoList[project]) {
             if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
                 task.completed = true;
-                if (project === 'Home Tasks') {
-                    const newCompletedTask = new Task(task.task, task.date, task.time, task.notes, task.priority, task.complete);
-                    newCompletedTask.addToDoList('Completed');
-                    toDoList['Home Tasks'].splice(toDoList[project].indexOf(task), 1);
-                }
             }
         }
     }
@@ -337,87 +342,83 @@ function markTask(e) {
 
 function showCompleted() {
     clearAllTasks();
-    showAllTasks('Completed');
+    for (let project in toDoList) {
+        for (let task of toDoList[project]) {
+            if (task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+        }
+    }
+}
+
+function getCurrentTasks() {
+    const currentTasks = [];
+    const allAddedTasks = document.querySelectorAll('.added-task');
+    allAddedTasks.forEach(element => {
+        const task = element.querySelector('.task-name').textContent;
+        const date = element.querySelector('.task-date').textContent;
+        const time = element.querySelector('.task-time').textContent;
+        const notes = element.querySelector('.task-notes').textContent;
+        const priority = element.querySelector('.label-box').dataset.priority;
+        const completed = element.dataset.completed;
+        currentTasks.push({task, date, time, notes, priority, completed});
+    })
+    return currentTasks;
+}
+
+function showCurrentTasks(currentTasks) {
+    for (let task of currentTasks) { 
+        showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    }
+}
+
+function sortCurrentTasks(currentTasks, parameter) {
+    currentTasks.sort((key1, key2) => {
+        const parameterName1 = key1[parameter].toLowerCase();
+        const parameterName2 = key2[parameter].toLowerCase();
+        if (parameterName1 < parameterName2) return -1;
+        if (parameterName1 > parameterName2) return 1;
+        return 0;
+    });
 }
 
 function orderByTask() {
-    const project = findOutProject();
-    toDoList[project].sort((task1, task2) => {
-        const parameterName1 = task1.task.toLowerCase();
-        const parameterName2 = task2.task.toLowerCase();
-        if (parameterName1 < parameterName2) {
-            return -1;
-        }
-        if (parameterName1 > parameterName2) {
-            return 1;
-        }
-        return 0;
-    });
-    showAllTasks(project);
+    const currentTasks = getCurrentTasks();
+    clearAllTasks();
+    sortCurrentTasks(currentTasks, 'task');
+    showCurrentTasks(currentTasks);
 }
 
 function orderByDate() {
-    const project = findOutProject();
-    toDoList[project].sort((date1, date2) => {
-        const parameterName1 = date1.date;
-        const parameterName2 = date2.date;
-        if (parameterName1 < parameterName2) {
-            return -1;
-        }
-        if (parameterName1 > parameterName2) {
-            return 1;
-        }
-        return 0;
-    });
-    showAllTasks(project);
+    const currentTasks = getCurrentTasks();
+    clearAllTasks();
+    sortCurrentTasks(currentTasks, 'date');
+    showCurrentTasks(currentTasks);
 }
 
 function orderByTime() {
-    const project = findOutProject();
-    toDoList[project].sort((time1, time2) => {
-        const parameterName1 = time1.time;
-        const parameterName2 = time2.time;
-        if (parameterName1 < parameterName2) {
-            return -1;
-        }
-        if (parameterName1 > parameterName2) {
-            return 1;
-        }
-        return 0;
-    });
-    showAllTasks(project);
+    const currentTasks = getCurrentTasks();
+    clearAllTasks();
+    sortCurrentTasks(currentTasks, 'time');
+    showCurrentTasks(currentTasks);
 }
 
 function orderByNotes() {
-    const project = findOutProject();
-    toDoList[project].sort((notes1, notes2) => {
-        const parameterName1 = notes1.notes.toLowerCase();
-        const parameterName2 = notes2.notes.toLowerCase();
-        if (parameterName1 < parameterName2) {
-            return -1;
-        }
-        if (parameterName1 > parameterName2) {
-            return 1;
-        }
-        return 0;
-    });
-    showAllTasks(project);
+    const currentTasks = getCurrentTasks();
+    clearAllTasks();
+    sortCurrentTasks(currentTasks, 'notes');
+    showCurrentTasks(currentTasks);
 }
 
 function orderByPriority() {
-    const project = findOutProject();
-    toDoList[project].sort((priority1, priority2) => {
+    const currentTasks = getCurrentTasks();
+    clearAllTasks();
+    currentTasks.sort((priority1, priority2) => {
         const parameterName1 = refactorPriority(priority1.priority);
-        const parameterName2 = refactorPriority(priority2.priority);       
-        if (parameterName1 < parameterName2) {
-            return -1;
-        }
-        if (parameterName1 > parameterName2) {
-            return 1;
-        }
+        const parameterName2 = refactorPriority(priority2.priority);
+        if (parameterName1 < parameterName2) return -1;
+        if (parameterName1 > parameterName2) return 1;
         return 0;
     });
-    showAllTasks(project);
+    showCurrentTasks(currentTasks);
 }
 
 function refactorPriority(priority) {
@@ -455,7 +456,7 @@ function saveToLocalStorage() {
 }
 
 function showTodaysTasks() {
-    showAllTasks();
+    showTasks();
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -471,7 +472,7 @@ function showTodaysTasks() {
 }
 
 function showWeeksTasks() {
-    showAllTasks();
+    showTasks();
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -489,7 +490,6 @@ function showWeeksTasks() {
     allDates.forEach(element => {
         const date = element.querySelector('.task-date').textContent;
         if (startDate >= date || endDate < date) {
-            console.log(date);
             element.remove();
         }
     })
@@ -578,4 +578,4 @@ buttonMenuOpen.addEventListener('click', () => {
 })
 
 showAllProjects();
-showAllTasks();
+showTasks();
