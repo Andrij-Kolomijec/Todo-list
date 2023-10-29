@@ -1,26 +1,30 @@
 let toDoList = {
-    "Home Tasks": [{
+    "Home Tasks": [
+        {
         task : 'Blink',
         date : '2023-10-25',
         time : '11:11',
         notes : 'just blink',
         priority : 'high',
         completed: false
-        }, {
+        },
+        {
         task : 'Do a flip',
         date : '2023-10-26',
         time : '22:22',
         notes : 'do not hurt yourself',
         priority : 'medium',
         completed: false
-        }, {
+        },
+        {
         task : 'Look out of the window',
         date : '2023-10-28',
         time : '18:33',
         notes : 'ou yeah',
         priority : 'low',
         completed: false
-        }, {
+        },
+        {
         task : 'Completed task',
         date : '2023-10-31',
         time : '15:44',
@@ -29,51 +33,60 @@ let toDoList = {
         completed: true
         }
     ],
-    "Chores": [{
+    "Chores": [
+        {
         task : 'do the dishes',
         date : '2023-10-28',
         time : '12:00',
         notes : 'use water',
         priority : 'low',
         completed: false
-        },{
+        },
+        {
         task : 'dust the ceilings',
         date : '2023-10-29',
         time : '08:00',
         notes : 'do not jump',
         priority : 'medium',
         completed: false
-        },{
+        },
+        {
         task : 'balance all the leafs',
         date : '2023-10-30',
         time : '11:00',
         notes : 'only the green ones',
         priority : 'high',
         completed: false
-        }],
-    "Work": [{
+        }
+    ],
+    "Work": [
+        {
         task : 'work a lot',
         date : '2023-11-04',
         time : '22:00',
         notes : 'no notes',
         priority : 'medium',
         completed: false
-        },{
+        },
+        {
         task : 'go to work',
         date : '2023-11-03',
         time : '09:00',
         notes : 'a lot of notes',
         priority : 'high',
         completed: false
-        }],
-    "Sleep": [{
+        }
+    ],
+    "Sleep": [
+        {
         task : 'go to bed',
         date : '2023-11-02',
         time : '22:00',
         notes : 'no notes',
         priority : 'high',
         completed: false
-        }],
+        }
+    ],
 }
 
 if (!localStorage.getItem('toDoList')) {
@@ -106,11 +119,21 @@ class Task {
 }
 
 function showAllTasks() {
-    for (let project in toDoList) {
-        for (let task of toDoList[project]) {
-            if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-        }
-    }
+    Object.values(toDoList).flat().forEach((task) => {
+        if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    })
+
+    // SAME AS
+    // Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
+    //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    // }))
+    
+    // SAME AS
+    // for (let project in toDoList) {
+    //     for (let task of toDoList[project]) {
+    //         if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    //     }
+    // }
 }
 
 function showTasks(project = 'Home Tasks') {
@@ -118,9 +141,13 @@ function showTasks(project = 'Home Tasks') {
     if (project === 'Home Tasks') {
         showAllTasks();
     } else {
-        for (let task of toDoList[project]) { 
+        toDoList[project].forEach((task) => {
             if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-        }
+        })
+        // SAME AS
+        // for (let task of toDoList[project]) { 
+        //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+        // }
     }
 }
 
@@ -202,14 +229,22 @@ function deleteTask(e) {
         const targetDate = e.target.parentNode.querySelector('.task-date').textContent;
         const targetTime = e.target.parentNode.querySelector('.task-time').textContent;
         const targetNotes = e.target.parentNode.querySelector('.task-notes').textContent;
-        for (let project in toDoList) {
-            for (let i = 0; i < toDoList[project].length; i++) {
-                if (targetTitle === toDoList[project][i].task && targetDate === toDoList[project][i].date && targetTime === toDoList[project][i].time && targetNotes === toDoList[project][i].notes) {
-                    toDoList[project].splice([i],1);
-                    e.target.parentNode.remove();
-                }
+
+        Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
+            if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
+                toDoList[project].splice([toDoList[project].indexOf(task)],1);
+                e.target.parentNode.remove();
             }
-        }
+        }))
+        // SAME AS
+        // for (let project in toDoList) {
+        //     for (let i = 0; i < toDoList[project].length; i++) {
+        //         if (targetTitle === toDoList[project][i].task && targetDate === toDoList[project][i].date && targetTime === toDoList[project][i].time && targetNotes === toDoList[project][i].notes) {
+        //             toDoList[project].splice([i],1);
+        //             e.target.parentNode.remove();
+        //         }
+        //     }
+        // }
     }
 }
 
@@ -237,11 +272,15 @@ function showProject(project) {
 
 function showAllProjects() {
     clearAllProjects();
-    for (let project in toDoList) {
-        if (project !== 'Home Tasks') {
-            showProject(project);
-        }
-    }
+    Object.keys(toDoList).forEach((project) => {
+        if (project !== 'Home Tasks') showProject(project);
+    })
+    //SAME AS
+    // for (let project in toDoList) {
+    //     if (project !== 'Home Tasks') {
+    //         showProject(project);
+    //     }
+    // }
 }
 
 function clearAllProjects() {
@@ -279,12 +318,19 @@ function addTaskInHomeTasks() {
 function deleteProject(e) {
     if (e.target.matches('.trash-project')) {
         const targetP = e.target.parentNode.querySelector('p').textContent;
-        for (let project in toDoList) {
+        Object.keys(toDoList).forEach((project) => {
             if (targetP === project) {
                 delete toDoList[project];
                 e.target.parentNode.remove();
             }
-        }
+        })
+        // SAME AS
+        // for (let project in toDoList) {
+        //     if (targetP === project) {
+        //         delete toDoList[project];
+        //         e.target.parentNode.remove();
+        //     }
+        // }
     }
 }
 
@@ -304,13 +350,27 @@ function markIncomplete(e) {
 
     e.target.parentNode.parentNode.classList.remove('completed');
     e.target.parentNode.parentNode.removeAttribute('data-completed');
-    for (let project in toDoList) {
-        for (let task of toDoList[project]) {
-            if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
-                task.completed = false;
-            }
+
+    Object.values(toDoList).flat().forEach((task) => {
+        if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
+            task.completed = false;
         }
-    }
+    })
+    // SAME AS
+    // Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
+    //     if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
+    //         task.completed = false;
+    //     }
+    // }))
+
+    // SAME AS
+    // for (let project in toDoList) {
+    //     for (let task of toDoList[project]) {
+    //         if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
+    //             task.completed = false;
+    //         }
+    //     }
+    // }
 }
 
 function markCompleted(e) {
@@ -321,13 +381,12 @@ function markCompleted(e) {
 
     e.target.parentNode.parentNode.classList.add('completed');
     e.target.parentNode.parentNode.setAttribute('data-completed', true);
-    for (let project in toDoList) {
-        for (let task of toDoList[project]) {
-            if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
-                task.completed = true;
-            }
+
+    Object.values(toDoList).flat().forEach((task) => {
+        if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
+            task.completed = true;
         }
-    }
+    })
 }
 
 function markTask(e) {
@@ -342,11 +401,15 @@ function markTask(e) {
 
 function showCompleted() {
     clearAllTasks();
-    for (let project in toDoList) {
-        for (let task of toDoList[project]) {
-            if (task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-        }
-    }
+    Object.values(toDoList).flat().forEach((task) => {
+        if (task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    })
+    // SAME AS
+    // for (let project in toDoList) {
+    //     for (let task of toDoList[project]) {
+    //         if (task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    //     }
+    // }
 }
 
 function getCurrentTasks() {
@@ -365,9 +428,11 @@ function getCurrentTasks() {
 }
 
 function showCurrentTasks(currentTasks) {
-    for (let task of currentTasks) { 
-        showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-    }
+    currentTasks.forEach((task) => showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed));
+    // SAME AS
+    // for (let task of currentTasks) { 
+    //     showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    // }
 }
 
 function sortCurrentTasks(currentTasks, parameter) {
@@ -429,26 +494,6 @@ function refactorPriority(priority) {
     } else if (priority === 'low') {
         return priority = 3;
     }
-}
-
-function findOutProject() {
-    const allTasksOnPage = document.querySelectorAll('.added-task');
-    let projectFound = null;
-    allTasksOnPage.forEach(task => {
-        const title = task.querySelector('.task-name').textContent;
-        const date = task.querySelector('.task-date').textContent;
-        const time = task.querySelector('.task-time').textContent;
-        const notes = task.querySelector('.task-notes').textContent;
-        for (let project in toDoList) {
-            for (task of toDoList[project]) {
-                if (task.task === title && task.date === date && task.time === time && task.notes === notes) {
-                    projectFound = project;
-                }
-            }
-            if (projectFound) break;
-        }
-    })
-    return projectFound; 
 }
 
 function saveToLocalStorage() {
