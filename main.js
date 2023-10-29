@@ -119,16 +119,16 @@ class Task {
 }
 
 function showAllTasks() {
-    Object.values(toDoList).flat().forEach((task) => {
-        if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-    })
-
+    Object.values(toDoList).flat().filter((task) => (!task.completed)).map((task) => showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed));
     // SAME AS
+    // Object.values(toDoList).flat().forEach((task) => {
+    //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    // })
+    // OR
     // Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
     //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
     // }))
-    
-    // SAME AS
+    // OR
     // for (let project in toDoList) {
     //     for (let task of toDoList[project]) {
     //         if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
@@ -141,10 +141,12 @@ function showTasks(project = 'Home Tasks') {
     if (project === 'Home Tasks') {
         showAllTasks();
     } else {
-        toDoList[project].forEach((task) => {
-            if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-        })
+        toDoList[project].filter((task) => (!task.completed)).map((task) => showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed));
         // SAME AS
+        // toDoList[project].forEach((task) => {
+        //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+        // })
+        // OR
         // for (let task of toDoList[project]) { 
         //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
         // }
@@ -230,13 +232,18 @@ function deleteTask(e) {
         const targetTime = e.target.parentNode.querySelector('.task-time').textContent;
         const targetNotes = e.target.parentNode.querySelector('.task-notes').textContent;
 
-        Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
-            if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
-                toDoList[project].splice([toDoList[project].indexOf(task)],1);
+        Object.keys(toDoList).forEach((project) => toDoList[project].filter((task) => (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes)).map((task) => {
+            toDoList[project].splice([toDoList[project].indexOf(task)], 1);
                 e.target.parentNode.remove();
-            }
         }))
         // SAME AS
+        // Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
+        //     if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
+        //         toDoList[project].splice([toDoList[project].indexOf(task)],1);
+        //         e.target.parentNode.remove();
+        //     }
+        // }))
+        // OR
         // for (let project in toDoList) {
         //     for (let i = 0; i < toDoList[project].length; i++) {
         //         if (targetTitle === toDoList[project][i].task && targetDate === toDoList[project][i].date && targetTime === toDoList[project][i].time && targetNotes === toDoList[project][i].notes) {
