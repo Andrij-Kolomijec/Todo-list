@@ -1,329 +1,339 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: antiquewhite;
-    font-family: 'Times New Roman', Times, serif;
-    min-height: 98vh;
-    display: flex;
-    margin: 5px;
+  background-color: antiquewhite;
+  font-family: "Times New Roman", Times, serif;
+  min-height: 98vh;
+  display: flex;
+  margin: 5px;
 }
 
 .collapsible {
-    height: 11vh;
-    width: calc(15vw + 40px);
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 2px solid;
-    transition: 0.5s;
+  height: 11vh;
+  width: calc(15vw + 40px);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid;
+  transition: 0.5s;
 }
 
 .collapsible img {
-    height: 40px;
-    cursor: pointer;
-    position: fixed;
-    transition: 0.5s;
+  height: 40px;
+  cursor: pointer;
+  position: fixed;
+  transition: 0.5s;
 }
 
 .menu-open {
-    display: none;
-    transition: 0.5s;
+  display: none;
+  transition: 0.5s;
 }
 
 .menu-close {
-    display: block;
-    transition: 0.5s;
+  display: block;
+  transition: 0.5s;
 }
 
 #navbar {
-    transition: 0.5s;
-    font-size: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 3vh;
-    align-items: center;
-    padding: 20px;
-    width: 15vw;
-    position: fixed;
-    height: 80%;
-    top: 12vh;
-    overflow: auto;
-    background-color: rgb(244, 219, 186);
-    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    margin-top: 5px;
+  transition: 0.5s;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  align-items: center;
+  padding: 20px;
+  width: 15vw;
+  position: fixed;
+  height: 80%;
+  top: 12vh;
+  overflow: auto;
+  background-color: rgb(244, 219, 186);
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  margin-top: 5px;
 }
 
 #navbar .icon {
-    height: 20px;
+  height: 20px;
 }
 
 #navbar > div {
-    display: flex;
-    gap: 5px;
+  display: flex;
+  gap: 5px;
 }
 
 #navbar .home:hover,
 #navbar .added-project:hover,
 .menu-close:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-    transition: 0.1s;
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: 0.1s;
 }
 
 #navbar .add-task,
 #navbar .add-project {
-    height: 30px;
+  height: 30px;
 }
 
 #navbar .add-task:hover,
 #navbar .add-project:hover {
-    cursor: pointer;
-    transition: 0.2s;
-    transform: scale(1.5);
+  cursor: pointer;
+  transition: 0.2s;
+  transform: scale(1.5);
 }
 
 #navbar .add-task:active,
 #navbar .add-project:active {
-    cursor: pointer;
-    transform: scale(0.8);
-    transition: 0.3s;
+  cursor: pointer;
+  transform: scale(0.8);
+  transition: 0.3s;
 }
 
 #navbar .projects-container {
-    flex-direction: column;
-    gap: 3vh;
+  flex-direction: column;
+  gap: 3vh;
 }
 
 #navbar .added-project {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
 }
 
 #navbar .added-project img {
-    height: 15px;
+  height: 15px;
 }
 
 #navbar .added-project img:hover {
-    transform: scale(2);
+  transform: scale(2);
 }
 
 dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    background-color: rgb(255, 231, 199);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: rgb(255, 231, 199);
 }
 
 dialog > form {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 20px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 20px;
+  padding: 20px;
 }
 
 dialog button {
-    place-self: center;
-    height: 40px;
-    width: 100px;
-    border-radius: 20px;
-    border: none;
-    background-color: black;
-    color: antiquewhite;
-    font-size: 20px;
-    font-weight: bold;
+  place-self: center;
+  height: 40px;
+  width: 100px;
+  border-radius: 20px;
+  border: none;
+  background-color: black;
+  color: antiquewhite;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .headline {
-    font-size: 1.5rem;
-    border-bottom: 2px dashed black;
-    align-self: stretch;
-    justify-content: center;
+  font-size: 1.5rem;
+  border-bottom: 2px dashed black;
+  align-self: stretch;
+  justify-content: center;
 }
 
 #container {
-    transition: 0.5s;
-    display: grid;
-    grid-template-rows: 11vh auto 30px;
-    width: 100%;
-    grid-template-columns: calc(15vw + 40px) auto calc(15vw + 40px);
+  transition: 0.5s;
+  display: grid;
+  grid-template-rows: 11vh auto 30px;
+  width: 100%;
+  grid-template-columns: calc(15vw + 40px) auto calc(15vw + 40px);
 }
 
 header {
-    grid-column: 2 / 3;
-    place-self: center;
-    font-size: 2rem;
+  grid-column: 2 / 3;
+  place-self: center;
+  font-size: 2rem;
 }
 
 #content {
-    grid-column: 2 / 4;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2vh;
-    padding: 20px;
-    border-top: 2px solid;
+  grid-column: 2 / 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh;
+  padding: 20px;
+  border-top: 2px solid;
 }
 
 #content #filter {
-    width: 85%;
-    display: grid;
-    grid-template-columns: 15px 2fr 1fr 1fr 3fr 22px;
-    align-items: center;
-    gap: 5vw;
-    font-size: .75rem;
-    place-self: center;
-    margin-top: -20px;
+  width: 85%;
+  display: grid;
+  grid-template-columns: 15px 2fr 1fr 1fr 3fr 22px;
+  align-items: center;
+  gap: 5vw;
+  font-size: 0.75rem;
+  place-self: center;
+  margin-top: -20px;
 }
 
 #content #filter div {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #content .added-task {
-    width: 85%;
-    display: grid;
-    grid-template-columns: auto 2fr 1fr 1fr 3fr 22px;
-    align-items: center;
-    gap: 5vw;
-    border: 1px dotted;
-    border-radius: 5px;
-    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    place-self: center;
-    height: 30px;
-    background-color: rgb(243, 222, 194);
-    font-size: 0.9rem;
+  width: 85%;
+  display: grid;
+  grid-template-columns: auto 2fr 1fr 1fr 3fr 22px;
+  align-items: center;
+  gap: 5vw;
+  border: 1px dotted;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  place-self: center;
+  height: 30px;
+  background-color: rgb(243, 222, 194);
+  font-size: 0.9rem;
 }
 
 #content .completed {
-    background-color: rgb(255, 250, 244);
-    color: grey;
+  background-color: rgb(255, 250, 244);
+  color: grey;
 }
 
 #content .added-task > .task-notes {
-    max-height: 40px;
-    overflow: auto;
+  max-height: 40px;
+  overflow: auto;
 }
 
 #content .added-task img:hover {
-    cursor: pointer;
-    transition: 0.5s;
-    animation: tilt-shaking 0.3s infinite;
+  cursor: pointer;
+  transition: 0.5s;
+  animation: tilt-shaking 0.3s infinite;
 }
 
 #content #sort-by-priority {
-    margin-left: -12px;
+  margin-left: -12px;
 }
 
-.check-label { 
-    display: block;
-    position: relative;
-    bottom: 5px;
-    cursor: pointer;
-    font-size: 20px;
+.check-label {
+  display: block;
+  position: relative;
+  bottom: 5px;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 /* From https://www.geeksforgeeks.org/how-to-style-a-checkbox-using-css/ */
-/* Hide the default checkbox */ 
-input[type=checkbox] { 
-    visibility: hidden;
-} 
-  
+/* Hide the default checkbox */
+input[type="checkbox"] {
+  visibility: hidden;
+}
+
 /* Creating a custom checkbox 
-based on demand */ 
-.label-box { 
-    position: absolute; 
-    top: 25%; 
-    left: 50%; 
-    height: 20px; 
-    width: 20px;
-    border-radius: 25%;
+based on demand */
+.label-box {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  height: 20px;
+  width: 20px;
+  border-radius: 25%;
 }
 
 .label-box.priority-high {
-    background-color: red; 
+  background-color: red;
 }
 
 .label-box.priority-medium {
-    background-color: orange; 
+  background-color: orange;
 }
 
 .label-box.priority-low {
-    background-color: yellow; 
+  background-color: yellow;
 }
-  
+
 /* Specify the background color to be 
-shown when hovering over checkbox */ 
-.check-label:hover input ~ .label-box { 
-    background-color: green; 
-} 
-  
+shown when hovering over checkbox */
+.check-label:hover input ~ .label-box {
+  background-color: green;
+}
+
 /* Specify the background color to be 
-shown when checkbox is active */ 
-.check-label input:active ~ .label-box { 
-    background-color: rgb(0, 73, 0); 
-} 
-  
+shown when checkbox is active */
+.check-label input:active ~ .label-box {
+  background-color: rgb(0, 73, 0);
+}
+
 /* Specify the background color to be 
-shown when checkbox is checked */ 
-.check-label input:checked ~ .label-box { 
-    background-color: green; 
-} 
-  
-/* Checkmark to be shown in checkbox */ 
-/* It is not be shown when not checked */ 
-.label-box:after { 
-    content: ""; 
-    position: absolute; 
-    display: none; 
-} 
-  
-/* Display checkmark when checked */ 
-.check-label input:checked ~ .label-box:after { 
-    display: block; 
-} 
-  
-/* Styling the checkmark using webkit */ 
+shown when checkbox is checked */
+.check-label input:checked ~ .label-box {
+  background-color: green;
+}
+
+/* Checkmark to be shown in checkbox */
+/* It is not be shown when not checked */
+.label-box:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Display checkmark when checked */
+.check-label input:checked ~ .label-box:after {
+  display: block;
+}
+
+/* Styling the checkmark using webkit */
 /* Rotated the rectangle by 45 degree and  
 showing only two border to make it look 
-like a tickmark */ 
-.check-label .label-box:after { 
-    left: 6px; 
-    bottom: -1px; 
-    width: 10px; 
-    height: 25px; 
-    border: solid black; 
-    border-width: 0 4px 5px 0;
-    border-radius: 50%;
-    -webkit-transform: rotate(38deg); 
-    -ms-transform: rotate(38deg); 
-    transform: rotate(38deg);
-} 
+like a tickmark */
+.check-label .label-box:after {
+  left: 6px;
+  bottom: -1px;
+  width: 10px;
+  height: 25px;
+  border: solid black;
+  border-width: 0 4px 5px 0;
+  border-radius: 50%;
+  -webkit-transform: rotate(38deg);
+  -ms-transform: rotate(38deg);
+  transform: rotate(38deg);
+}
 
 footer {
-    grid-column: span 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  grid-column: span 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 footer .icon {
-    height: 35px;
+  height: 35px;
 }
 
 @keyframes tilt-shaking {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(10deg); }
-    50% { transform: rotate(0eg); }
-    75% { transform: rotate(-10deg); }
-    100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
   }
+  25% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

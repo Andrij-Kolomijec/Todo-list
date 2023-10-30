@@ -1,95 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="main.js" defer></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="./icons/check-all.svg">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="./icons/check-all.svg" />
     <title>Todo list</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="collapsible">
-        <img class="menu-close icon" src="./icons/menu-open.svg">
-        <img class="menu-open icon" src="./icons/menu-close.svg">
+      <img class="menu-close icon" src="./icons/menu-open.svg" />
+      <img class="menu-open icon" src="./icons/menu-close.svg" />
     </div>
     <div id="navbar">
-        <div class="headline">
-            Home
-        </div>
-        <div class="all-tasks home">
-            <img class="all-tasks icon" src="./icons/ballot-outline.svg">
-            All tasks
-        </div>
-        <div class="today home">
-            <img class="today icon" src="./icons/calendar-today.svg">
-            Today
-        </div>
-        <div class="week home">
-            <img class="week icon" src="./icons/calendar-month.svg">
-            Week
-        </div>
-        <div class="completed home">
-            <img class="completed icon" src="./icons/check-all.svg">
-            Completed
-        </div>
-        <img class="add-task icon" src="./icons/plus-circle-outline.svg">
-        <dialog id="new-task">
-            <form id="new-task-form">
-                <label for="submit-task">New item</label>
-                <input type="text" id="submit-task" required>
-                <label for="submit-date">Due date</label>
-                <input type="date" id="submit-date">
-                <label for="submit-time">Due time</label>
-                <input type="time" id="submit-time">
-                <label for="submit-notes">Notes</label>
-                <textarea id="submit-notes"></textarea>
-                <label for="priority-selector">Priority</label>
-                <select class="priority" id="priority-selector">
-                    <option value="high">high</option>
-                    <option value="medium">medium</option>
-                    <option value="low">low</option>
-                </select>
-                <button class="close-task modal" formmethod="dialog" type="submit">Close</button>
-                <button class="submit-task modal" type="submit">Submit</button>
-            </form>
-        </dialog>
-        <br>
-        <div class="headline projects">Projects</div>
-        <div class="projects-container">
-        </div>
-        <img class="add-project icon" src="./icons/plus-circle-outline.svg">
-        <dialog id="new-project">
-            <form id="new-project-form">
-                <label for="submit-project">New project</label>
-                <input type="text" id="submit-project" required>
-                <button class="close-project modal" formmethod="dialog" type="submit">Close</button>
-                <button class="submit-project modal" type="submit">Submit</button>
-            </form>
-        </dialog>
+      <div class="headline">Home</div>
+      <div class="all-tasks home">
+        <img class="all-tasks icon" src="./icons/ballot-outline.svg" />
+        All tasks
+      </div>
+      <div class="today home">
+        <img class="today icon" src="./icons/calendar-today.svg" />
+        Today
+      </div>
+      <div class="week home">
+        <img class="week icon" src="./icons/calendar-month.svg" />
+        Week
+      </div>
+      <div class="completed home">
+        <img class="completed icon" src="./icons/check-all.svg" />
+        Completed
+      </div>
+      <img class="add-task icon" src="./icons/plus-circle-outline.svg" />
+      <dialog id="new-task">
+        <form id="new-task-form">
+          <label for="submit-task">New item</label>
+          <input type="text" id="submit-task" required />
+          <label for="submit-date">Due date</label>
+          <input type="date" id="submit-date" />
+          <label for="submit-time">Due time</label>
+          <input type="time" id="submit-time" />
+          <label for="submit-notes">Notes</label>
+          <textarea id="submit-notes"></textarea>
+          <label for="priority-selector">Priority</label>
+          <select class="priority" id="priority-selector">
+            <option value="high">high</option>
+            <option value="medium">medium</option>
+            <option value="low">low</option>
+          </select>
+          <button class="close-task modal" formmethod="dialog" type="submit">
+            Close
+          </button>
+          <button class="submit-task modal" type="submit">Submit</button>
+        </form>
+      </dialog>
+      <br />
+      <div class="headline projects">Projects</div>
+      <div class="projects-container"></div>
+      <img class="add-project icon" src="./icons/plus-circle-outline.svg" />
+      <dialog id="new-project">
+        <form id="new-project-form">
+          <label for="submit-project">New project</label>
+          <input type="text" id="submit-project" required />
+          <button class="close-project modal" formmethod="dialog" type="submit">
+            Close
+          </button>
+          <button class="submit-project modal" type="submit">Submit</button>
+        </form>
+      </dialog>
     </div>
     <div id="container">
-        <header>
-            <div>To-Do List</div>
-        </header>
-        <div id="content">
-            <div id="filter">
-                <div id="sort-by-priority">PRIORITY</div>
-                <div id="sort-by-task">TASK</div>
-                <div id="sort-by-date">DATE</div>
-                <div id="sort-by-time">TIME</div>
-                <div id="sort-by-notes">NOTES</div>
-            </div>
+      <header>
+        <div>To-Do List</div>
+      </header>
+      <div id="content">
+        <div id="filter">
+          <div id="sort-by-priority">PRIORITY</div>
+          <div id="sort-by-task">TASK</div>
+          <div id="sort-by-date">DATE</div>
+          <div id="sort-by-time">TIME</div>
+          <div id="sort-by-notes">NOTES</div>
         </div>
-        <footer>
-            <a href="https://github.com/Andrij-Kolomijec">
-                <img class="icon" src="./icons/github.svg">
-            </a>
-            <p>
-            | Icons by
-                <a href="https://pictogrammers.com/">Pictogrammers</a>
-            </p>
-        </footer>
+      </div>
+      <footer>
+        <a href="https://github.com/Andrij-Kolomijec">
+          <img class="icon" src="./icons/github.svg" />
+        </a>
+        <p>
+          | Icons by
+          <a href="https://pictogrammers.com/">Pictogrammers</a>
+        </p>
+      </footer>
     </div>
-</body>
+  </body>
 </html>
