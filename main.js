@@ -279,10 +279,12 @@ function showProject(project) {
 
 function showAllProjects() {
     clearAllProjects();
-    Object.keys(toDoList).forEach((project) => {
-        if (project !== 'Home Tasks') showProject(project);
-    })
-    //SAME AS
+    Object.keys(toDoList).filter((project) => (project !== 'Home Tasks')).map((project) => showProject(project));
+    // SAME AS
+    // Object.keys(toDoList).forEach((project) => {
+    //     if (project !== 'Home Tasks') showProject(project);
+    // })
+    // OR
     // for (let project in toDoList) {
     //     if (project !== 'Home Tasks') {
     //         showProject(project);
@@ -292,7 +294,7 @@ function showAllProjects() {
 
 function clearAllProjects() {
     const allProjects = document.querySelectorAll('.added-project');
-    allProjects.forEach(element => element.remove());
+    allProjects.forEach((element) => element.remove());
 }
 
 function createNewProject() {
@@ -325,13 +327,19 @@ function addTaskInHomeTasks() {
 function deleteProject(e) {
     if (e.target.matches('.trash-project')) {
         const targetP = e.target.parentNode.querySelector('p').textContent;
-        Object.keys(toDoList).forEach((project) => {
-            if (targetP === project) {
-                delete toDoList[project];
-                e.target.parentNode.remove();
-            }
+
+        Object.keys(toDoList).filter((project) => (targetP === project)).map((project) => {
+            delete toDoList[project];
+            e.target.parentNode.remove();
         })
         // SAME AS
+        // Object.keys(toDoList).forEach((project) => {
+        //     if (targetP === project) {
+        //         delete toDoList[project];
+        //         e.target.parentNode.remove();
+        //     }
+        // })
+        // OR
         // for (let project in toDoList) {
         //     if (targetP === project) {
         //         delete toDoList[project];
@@ -358,19 +366,20 @@ function markIncomplete(e) {
     e.target.parentNode.parentNode.classList.remove('completed');
     e.target.parentNode.parentNode.removeAttribute('data-completed');
 
-    Object.values(toDoList).flat().forEach((task) => {
-        if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
-            task.completed = false;
-        }
-    })
+    Object.values(toDoList).flat().filter((task) => (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes)).map((task) => task.completed = false);
     // SAME AS
+    // Object.values(toDoList).flat().forEach((task) => {
+    //     if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
+    //         task.completed = false;
+    //     }
+    // })
+    // OR
     // Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
     //     if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
     //         task.completed = false;
     //     }
     // }))
-
-    // SAME AS
+    // OR
     // for (let project in toDoList) {
     //     for (let task of toDoList[project]) {
     //         if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
@@ -389,11 +398,7 @@ function markCompleted(e) {
     e.target.parentNode.parentNode.classList.add('completed');
     e.target.parentNode.parentNode.setAttribute('data-completed', true);
 
-    Object.values(toDoList).flat().forEach((task) => {
-        if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
-            task.completed = true;
-        }
-    })
+    Object.values(toDoList).flat().filter((task) => (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes)).map((task) => task.completed = true);
 }
 
 function markTask(e) {
@@ -408,10 +413,13 @@ function markTask(e) {
 
 function showCompleted() {
     clearAllTasks();
-    Object.values(toDoList).flat().forEach((task) => {
-        if (task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-    })
+
+    Object.values(toDoList).flat().filter((task) => (task.completed)).map((task) => showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed));
     // SAME AS
+    // Object.values(toDoList).flat().forEach((task) => {
+    //     if (task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    // })
+    // OR
     // for (let project in toDoList) {
     //     for (let task of toDoList[project]) {
     //         if (task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
@@ -435,7 +443,7 @@ function getCurrentTasks() {
 }
 
 function showCurrentTasks(currentTasks) {
-    currentTasks.forEach((task) => showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed));
+    currentTasks.map((task) => showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed));
     // SAME AS
     // for (let task of currentTasks) { 
     //     showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
