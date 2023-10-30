@@ -118,63 +118,30 @@ class Task {
   }
 }
 
-function showAllTasks() {
-  Object.values(toDoList)
-    .flat()
-    .filter((task) => !task.completed)
-    .map((task) =>
-      showATask(
-        task.task,
-        task.date,
-        task.time,
-        task.notes,
-        task.priority,
-        task.completed,
-      ),
-    );
-  // SAME AS
-  // Object.values(toDoList).flat().forEach((task) => {
-  //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-  // })
-  // OR
-  // Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
-  //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-  // }))
-  // OR
-  // for (let project in toDoList) {
-  //     for (let task of toDoList[project]) {
-  //         if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-  //     }
-  // }
-}
-
-function showTasks(project = "Home Tasks") {
-  clearAllTasks();
-  if (project === "Home Tasks") {
-    showAllTasks();
-  } else {
-    toDoList[project]
-      .filter((task) => !task.completed)
-      .map((task) =>
-        showATask(
-          task.task,
-          task.date,
-          task.time,
-          task.notes,
-          task.priority,
-          task.completed,
-        ),
-      );
-    // SAME AS
-    // toDoList[project].forEach((task) => {
-    //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-    // })
-    // OR
-    // for (let task of toDoList[project]) {
-    //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
-    // }
-  }
-}
+const buttonSubmitTask = document.querySelector(".submit-task");
+const buttonSubmitProject = document.querySelector(".submit-project");
+const buttonCancelTaskDialog = document.querySelector(".close-task");
+const buttonCancelProjectDialog = document.querySelector(".close-project");
+const buttonCompleted = document.querySelector(".completed");
+const buttonSortByTask = document.querySelector("#sort-by-task");
+const buttonSortByDate = document.querySelector("#sort-by-date");
+const buttonSortByTime = document.querySelector("#sort-by-time");
+const buttonSortByNotes = document.querySelector("#sort-by-notes");
+const buttonSortByPriority = document.querySelector("#sort-by-priority");
+const taskForm = document.querySelector("#new-task-form");
+const projectForm = document.querySelector("#new-project-form");
+const buttonAddTask = document.querySelector(".add-task");
+const buttonAddProject = document.querySelector(".add-project");
+const buttonToday = document.querySelector(".today");
+const buttonWeek = document.querySelector(".week");
+const taskDialog = document.querySelector("#new-task");
+const projectDialog = document.querySelector("#new-project");
+const dialogs = document.querySelectorAll("dialog");
+const buttonMenuHide = document.querySelector(".menu-close");
+const buttonMenuOpen = document.querySelector(".menu-open");
+const navbar = document.querySelector("#navbar");
+const container = document.querySelector("#container");
+let targetProject = "Home Tasks";
 
 function clearAllTasks() {
   const allTasks = document.querySelectorAll(".added-task");
@@ -236,6 +203,64 @@ function showATask(task, date, time, notes, priority, completed = false) {
   content.append(addedTask);
 }
 
+function showAllTasks() {
+  Object.values(toDoList)
+    .flat()
+    .filter((task) => !task.completed)
+    .map((task) =>
+      showATask(
+        task.task,
+        task.date,
+        task.time,
+        task.notes,
+        task.priority,
+        task.completed,
+      ),
+    );
+  // SAME AS
+  // Object.values(toDoList).flat().forEach((task) => {
+  //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+  // })
+  // OR
+  // Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
+  //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+  // }))
+  // OR
+  // for (let project in toDoList) {
+  //     for (let task of toDoList[project]) {
+  //         if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+  //     }
+  // }
+}
+
+function showTasks(project = "Home Tasks") {
+  clearAllTasks();
+  if (project === "Home Tasks") {
+    showAllTasks();
+  } else {
+    toDoList[project]
+      .filter((task) => !task.completed)
+      .map((task) =>
+        showATask(
+          task.task,
+          task.date,
+          task.time,
+          task.notes,
+          task.priority,
+          task.completed,
+        ),
+      );
+    // SAME AS
+    // toDoList[project].forEach((task) => {
+    //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    // })
+    // OR
+    // for (let task of toDoList[project]) {
+    //     if (!task.completed) showATask(task.task, task.date, task.time, task.notes, task.priority, task.completed);
+    // }
+  }
+}
+
 function createNewTask() {
   const task = document.querySelector("#submit-task").value;
   const date = document.querySelector("#submit-date").value;
@@ -274,7 +299,7 @@ function deleteTask(e) {
             targetTime === task.time &&
             targetNotes === task.notes,
         )
-        .map((task) => {
+        .forEach((task) => {
           toDoList[project].splice([toDoList[project].indexOf(task)], 1);
           e.target.parentNode.remove();
         }),
@@ -320,6 +345,11 @@ function showProject(project) {
   projects.append(addedProject);
 }
 
+function clearAllProjects() {
+  const allProjects = document.querySelectorAll(".added-project");
+  allProjects.forEach((element) => element.remove());
+}
+
 function showAllProjects() {
   clearAllProjects();
   Object.keys(toDoList)
@@ -335,11 +365,6 @@ function showAllProjects() {
   //         showProject(project);
   //     }
   // }
-}
-
-function clearAllProjects() {
-  const allProjects = document.querySelectorAll(".added-project");
-  allProjects.forEach((element) => element.remove());
 }
 
 function createNewProject() {
@@ -375,7 +400,7 @@ function deleteProject(e) {
 
     Object.keys(toDoList)
       .filter((project) => targetP === project)
-      .map((project) => {
+      .forEach((project) => {
         delete toDoList[project];
         e.target.parentNode.remove();
       });
@@ -426,7 +451,10 @@ function markIncomplete(e) {
         targetTime === task.time &&
         targetNotes === task.notes,
     )
-    .map((task) => (task.completed = false));
+    .forEach((task) => {
+      const targetedTask = task;
+      targetedTask.completed = false;
+    });
   // SAME AS
   // Object.values(toDoList).flat().forEach((task) => {
   //     if (targetTitle === task.task && targetDate === task.date && targetTime === task.time && targetNotes === task.notes) {
@@ -471,7 +499,10 @@ function markCompleted(e) {
         targetTime === task.time &&
         targetNotes === task.notes,
     )
-    .map((task) => (task.completed = true));
+    .forEach((task) => {
+      const targetedTask = task;
+      targetedTask.completed = true;
+    });
 }
 
 function markTask(e) {
@@ -582,6 +613,19 @@ function orderByNotes() {
   showCurrentTasks(currentTasks);
 }
 
+function refactorPriority(priority) {
+  if (priority === "high") {
+    const priorityLevel = 1;
+    return priorityLevel;
+  }
+  if (priority === "medium") {
+    const priorityLevel = 2;
+    return priorityLevel;
+  }
+  const priorityLevel = 3;
+  return priorityLevel;
+}
+
 function orderByPriority() {
   const currentTasks = getCurrentTasks();
   clearAllTasks();
@@ -593,18 +637,6 @@ function orderByPriority() {
     return 0;
   });
   showCurrentTasks(currentTasks);
-}
-
-function refactorPriority(priority) {
-  if (priority === "high") {
-    return (priority = 1);
-  }
-  if (priority === "medium") {
-    return (priority = 2);
-  }
-  if (priority === "low") {
-    return (priority = 3);
-  }
 }
 
 function saveToLocalStorage() {
@@ -650,31 +682,6 @@ function showWeeksTasks() {
     }
   });
 }
-
-const buttonSubmitTask = document.querySelector(".submit-task");
-const buttonSubmitProject = document.querySelector(".submit-project");
-const buttonCancelTaskDialog = document.querySelector(".close-task");
-const buttonCancelProjectDialog = document.querySelector(".close-project");
-const buttonCompleted = document.querySelector(".completed");
-const buttonSortByTask = document.querySelector("#sort-by-task");
-const buttonSortByDate = document.querySelector("#sort-by-date");
-const buttonSortByTime = document.querySelector("#sort-by-time");
-const buttonSortByNotes = document.querySelector("#sort-by-notes");
-const buttonSortByPriority = document.querySelector("#sort-by-priority");
-const taskForm = document.querySelector("#new-task-form");
-const projectForm = document.querySelector("#new-project-form");
-const buttonAddTask = document.querySelector(".add-task");
-const buttonAddProject = document.querySelector(".add-project");
-const buttonToday = document.querySelector(".today");
-const buttonWeek = document.querySelector(".week");
-const taskDialog = document.querySelector("#new-task");
-const projectDialog = document.querySelector("#new-project");
-const dialogs = document.querySelectorAll("dialog");
-const buttonMenuHide = document.querySelector(".menu-close");
-const buttonMenuOpen = document.querySelector(".menu-open");
-const navbar = document.querySelector("#navbar");
-const container = document.querySelector("#container");
-let targetProject = "Home Tasks";
 
 document.addEventListener("click", (e) => addTaskInProject(e));
 document.addEventListener("click", (e) => deleteTask(e));
