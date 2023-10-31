@@ -198,7 +198,7 @@ function showATask(task, date, time, notes, priority, completed = false) {
     taskDate,
     taskTime,
     taskNotes,
-    imgTrash,
+    imgTrash
   );
   content.append(addedTask);
 }
@@ -214,8 +214,8 @@ function showAllTasks() {
         task.time,
         task.notes,
         task.priority,
-        task.completed,
-      ),
+        task.completed
+      )
     );
   // SAME AS
   // Object.values(toDoList).flat().forEach((task) => {
@@ -247,8 +247,8 @@ function showTasks(project = "Home Tasks") {
           task.time,
           task.notes,
           task.priority,
-          task.completed,
-        ),
+          task.completed
+        )
       );
     // SAME AS
     // toDoList[project].forEach((task) => {
@@ -297,12 +297,12 @@ function deleteTask(e) {
             targetTitle === task.task &&
             targetDate === task.date &&
             targetTime === task.time &&
-            targetNotes === task.notes,
+            targetNotes === task.notes
         )
         .forEach((task) => {
           toDoList[project].splice([toDoList[project].indexOf(task)], 1);
           e.target.parentNode.remove();
-        }),
+        })
     );
     // SAME AS
     // Object.keys(toDoList).forEach((project) => toDoList[project].forEach((task) => {
@@ -449,7 +449,7 @@ function markIncomplete(e) {
         targetTitle === task.task &&
         targetDate === task.date &&
         targetTime === task.time &&
-        targetNotes === task.notes,
+        targetNotes === task.notes
     )
     .forEach((task) => {
       const targetedTask = task;
@@ -497,7 +497,7 @@ function markCompleted(e) {
         targetTitle === task.task &&
         targetDate === task.date &&
         targetTime === task.time &&
-        targetNotes === task.notes,
+        targetNotes === task.notes
     )
     .forEach((task) => {
       const targetedTask = task;
@@ -528,8 +528,8 @@ function showCompleted() {
         task.time,
         task.notes,
         task.priority,
-        task.completed,
-      ),
+        task.completed
+      )
     );
   // SAME AS
   // Object.values(toDoList).flat().forEach((task) => {
@@ -566,8 +566,8 @@ function showCurrentTasks(currentTasks) {
       task.time,
       task.notes,
       task.priority,
-      task.completed,
-    ),
+      task.completed
+    )
   );
   // SAME AS
   // for (let task of currentTasks) {
@@ -701,7 +701,7 @@ buttonSubmitProject.addEventListener("click", (e) => submitProject(e));
 buttonSubmitTask.addEventListener("click", (e) => submitTask(e));
 buttonCancelTaskDialog.addEventListener("click", () => taskDialog.close());
 buttonCancelProjectDialog.addEventListener("click", () =>
-  projectDialog.close(),
+  projectDialog.close()
 );
 buttonCompleted.addEventListener("click", showCompleted);
 buttonToday.addEventListener("click", showTodaysTasks);
@@ -725,7 +725,7 @@ dialogs.forEach((dialog) =>
     ) {
       dialog.close();
     }
-  }),
+  })
 );
 
 buttonMenuHide.addEventListener("click", () => {
