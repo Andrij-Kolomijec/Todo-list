@@ -717,11 +717,14 @@ projectForm.addEventListener("keydown", (e) => {
 dialogs.forEach((dialog) =>
   dialog.addEventListener("click", (e) => {
     const dialogDimensions = dialog.getBoundingClientRect();
+    // prevents mozzila from closing the dialog when clicking select
+    const isSelectOrDescendant = e.target.closest("select");
     if (
-      e.clientX < dialogDimensions.left ||
-      e.clientX > dialogDimensions.right ||
-      e.clientY < dialogDimensions.top ||
-      e.clientY > dialogDimensions.bottom
+      !isSelectOrDescendant &&
+      (e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom)
     ) {
       dialog.close();
     }
